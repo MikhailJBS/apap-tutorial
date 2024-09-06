@@ -29,6 +29,18 @@ Delete Source Branch: Hal ini berarti bahwa jika nanti kita melakukan merge, mak
 
 Squash Commits: Opsi ini adalah opsi untuk menggabungkan beberapa commit menjadi satu commit. Hal ini digunakan untuk merapihkan history branch sebelum di merge ke main.
 
+3. Apa keunggulan menggunakan Version Control System seperti Git dalam pengembangan suatu aplikasi?
+
+- Kolaborasi: Git memungkinkan banyak pengembang untuk bekerja secara bersamaan pada kode yang sama tanpa mengganggu pekerjaan satu sama lain melalui fitur branching dan merging.
+
+- Tracking Perubahan: Setiap perubahan kode tercatat dengan detail, termasuk siapa yang melakukan perubahan dan kapan. Ini memudahkan pelacakan kesalahan dan rollback ke versi sebelumnya jika terjadi masalah.
+
+- Parallel Development: Dengan sistem branching, tim bisa mengembangkan fitur baru atau memperbaiki bug di cabang terpisah tanpa mengganggu stabilitas kode utama.
+
+- Backup Otomatis: Semua perubahan kode tersimpan dalam repository, sehingga kode tidak akan hilang jika terjadi masalah di komputer lokal.
+
+- Integrasi dan Deployment: Git terintegrasi dengan berbagai tools untuk Continuous Integration (CI) dan Continuous Deployment (CD), memudahkan otomatisasi pengujian dan peluncuran aplikasi.
+
 ###  Spring
  
 4. Apa itu Gradle? Mengapa kita menggunakan Gradle? Apakah ada alternatif dari Gradle?

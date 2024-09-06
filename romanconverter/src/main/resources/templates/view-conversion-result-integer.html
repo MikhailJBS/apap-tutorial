@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Integer Converter</title>
+		<link rel="stylesheet" th:href="@{/css/styles.css}" />
+	</head>
+	<body>
+		<div class="card">
+			<div class="feature-title">
+				<h3>Integer Converter</h3>
+			</div>
+
+			<div class="container" th:if="${errorMessage}">
+				<div class="wrapper error">
+					<h3 style="text-align: center;">
+					<span th:text="${errorMessage}"></span>
+					</h3>
+				</div>
+			</div>
+
+			<div class="container" th:if="${integerConverter != null and errorMessage == null}">
+				<div class="wrapper">
+					<h3>
+						Roman:
+						<span th:text="${integerConverter.convertIntegerToRoman()}"></span>
+					</h3>
+				</div>
+				<div class="wrapper">
+					<h3>
+						Decimal:
+						<span th:text="${integerConverter.getNum()}"></span>
+					</h3>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,16 +1,18 @@
 package apap.tutorial.manpromanpro.model;
+import apap.tutorial.manpromanpro.model.Status;
 
 import java.util.UUID;
+import java.util.Date;
 
 public class Proyek {
     private UUID id;
     private String nama;
-    private String tanggalMulai;
-    private String tanggalSelesai;
-    private String status;
+    private Date tanggalMulai;
+    private Date tanggalSelesai;
+    private Status status; 
     private String developer;
 
-    public Proyek(String developer, UUID id, String nama, String status, String tanggalMulai, String tanggalSelesai) {
+    public Proyek(String developer, UUID id, String nama, Status status, Date tanggalMulai, Date tanggalSelesai) {
         this.developer = developer;
         this.id = id;
         this.nama = nama;
@@ -35,27 +37,27 @@ public class Proyek {
         this.nama = nama;
     }
 
-    public String getTanggalMulai() {
+    public Date getTanggalMulai() {
         return tanggalMulai;
     }
 
-    public void setTanggalMulai(String tanggalMulai) {
+    public void setTanggalMulai(Date tanggalMulai) {
         this.tanggalMulai = tanggalMulai;
     }
 
-    public String getTanggalSelesai() {
+    public Date getTanggalSelesai() {
         return tanggalSelesai;
     }
 
-    public void setTanggalSelesai(String tanggalSelesai) {
+    public void setTanggalSelesai(Date tanggalSelesai) {
         this.tanggalSelesai = tanggalSelesai;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

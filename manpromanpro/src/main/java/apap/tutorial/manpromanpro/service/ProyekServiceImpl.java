@@ -30,4 +30,22 @@ public class ProyekServiceImpl implements ProyekService {
         }
         return null;
     }
+
+    @Override
+    public Proyek updateProyek(Proyek proyek) {
+        for (Proyek proyekToUpdate : listProyek) {
+            if (proyekToUpdate.getId().equals(proyek.getId())) {
+                proyekToUpdate.setNama(proyek.getNama());
+                proyekToUpdate.setTanggalMulai(proyek.getTanggalMulai());
+                proyekToUpdate.setTanggalSelesai(proyek.getTanggalSelesai());
+                proyekToUpdate.setStatus(proyek.getStatus());
+            }
+        }
+        return proyek;
+    }
+
+    @Override
+    public void deleteProyek(Proyek proyek) {
+        listProyek.remove(proyek);
+    }
 }

@@ -102,6 +102,7 @@ Tutorial pada kali ini sangat baik karena saya mengerti banyak hal terkait penge
 ##  Tutorial 2
 
 ###  Apa yang telah saya pelajari hari ini
+Pada Lab Tutorial 2 kali ini, saya telah mempelajari banyak hal. Salah satunya adalah terkait service interface dan implementation, serta kegunaannya. Selain itu, saya juga belajar banyak hal terkait best practices dalam menggunakan Spring Boot, seperti menggunakan DTO, service, controller, dan model. Saya juga belajar bagaimana cara menggunakan Thymeleaf untuk membuat form pada Spring Boot untuk menerima input dan bagaimana DTO bisa berguna di dalamnya.
 
 
 
@@ -185,9 +186,3 @@ Digunakan untuk melakukan iterasi pada objek model yang telah dihubungkan dengan
 Digunakan untuk melakukan operasi kondisional pada objek model yang telah dihubungkan dengan form.
 
 (source: https://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html)
-
-
-###  Apa yang belum saya pahami
-Tutorial pada kali ini sangat baik karena saya mengerti banyak hal terkait pengembangan aplikasi Spring dengan singkat. Namun ada beberapa hal yang belum saya pahami.
--  [ ] Kenapa saya menggunakan Lombok?
--  [ ] Apa yang dimaksud kode boilerplate dan mengapa harus dikurangi?

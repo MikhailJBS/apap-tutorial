@@ -1,6 +1,11 @@
 package apap.tutorial.manpromanpro.controller.DTO;
+import apap.tutorial.manpromanpro.model.Status;
 
 import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 public class ProyekDTO {
     
@@ -20,27 +25,27 @@ public class ProyekDTO {
         this.nama = nama;
     }
 
-    public String getTanggalMulai() {
+    public Date getTanggalMulai() {
         return tanggalMulai;
     }
 
-    public void setTanggalMulai(String tanggalMulai) {
+    public void setTanggalMulai(Date tanggalMulai) {
         this.tanggalMulai = tanggalMulai;
     }
 
-    public String getTanggalSelesai() {
+    public Date getTanggalSelesai() {
         return tanggalSelesai;
     }
 
-    public void setTanggalSelesai(String tanggalSelesai) {
+    public void setTanggalSelesai(Date tanggalSelesai) {
         this.tanggalSelesai = tanggalSelesai;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -54,16 +59,20 @@ public class ProyekDTO {
 
     private UUID id;
     private String nama;
-    private String tanggalMulai;
-    private String tanggalSelesai;
-    private String status;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date tanggalMulai;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date tanggalSelesai;
+    private Status status;
     private String developer;
 
     public ProyekDTO(){
 
     }
 
-    public ProyekDTO(UUID id, String nama, String tanggalMulai, String tanggalSelesai, String status, String developer) {
+    public ProyekDTO(UUID id, String nama, Date tanggalMulai, Date tanggalSelesai, Status status, String developer) {
         this.id = id;
         this.nama = nama;
         this.tanggalMulai = tanggalMulai;

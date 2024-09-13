@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
- 
+
 <head>
   <meta charset="UTF-8">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
-  <title>Tambah Proyek</title>
+  <title>Update Proyek</title>
 </head>
- 
+
 <body>
   <div class="container">
     <div class="card m-4 p-4">
         <div class="card-body">
             <div class="justify-content-center">
-                <h2>Tambah Proyek</h2>
+                <h2>Update Proyek</h2>
                 <br>
-                <form th:action="@{/proyek/add}" th:object="${proyekDTO}" method="POST">
-                    <input class="form-control" type="hidden" th:field="*{id}"/>
+                <p>Proyek ID: <span th:text="${proyekDTO.id}">ID not set</span></p>
+                
+                <form th:action="@{/proyek/{id}/update(id=${proyekDTO.id})}" th:object="${proyekDTO}" method="POST">
+                    <input class="form-control" type="hidden" th:field="*{id}" />
                     
                     <label for="namaProyek">Nama Proyek:</label>
                     <input class="form-control" type="text" th:field="*{nama}" id="namaProyek" required/>
@@ -36,7 +38,7 @@
                         <option value="ON_GOING">On Going</option>
                         <option value="FINISHED">Finished</option>
                     </select>
-                    <br><br>                    
+                    <br><br>    
 
                     <label for="developer">Developer:</label>
                     <input class="form-control" type="text" th:field="*{developer}" id="developer" required/>
@@ -50,5 +52,5 @@
     </div>
   </div>
 </body>
- 
+
 </html>

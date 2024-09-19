@@ -2,102 +2,136 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
-  <title>Home</title>
-  <style>
-    .status-circle {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      border: 1px solid black;
-    }
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <title>Daftar Proyek</title>
+    <style>
+        .search-container {
+          max-width: 600px;
+          margin: 0 auto;
+        }
 
-    .status-circle:hover {
-      width: 120px;
-      height: 40px;
-      border-radius: 20px;
-      justify-content: center;
-      padding: 5px;
-      color: black;
-      font-size: 14px;
-      font-weight: bold;
-      overflow: hidden;
-      white-space: nowrap;
-      border: 1px solid black;
-    }
+        .status-circle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border: 1px solid black;
+      }
 
-    .status-ongoing {
-      background-color: yellow;
-    }
+      .status-circle:hover {
+        width: 120px;
+        height: 40px;
+        border-radius: 20px;
+        justify-content: center;
+        padding: 5px;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+        overflow: hidden;
+        white-space: nowrap;
+        border: 1px solid black;
+      }
 
-    .status-finished {
-      background-color: green;
-    }
+      .status-ongoing {
+        background-color: rgb(255, 255, 107);
+      }
 
-    .status-circle span {
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      white-space: nowrap;
-      font-size: 14px;
-      color: black;
-    }
+      .status-finished {
+        background-color: rgb(88, 255, 88);
+      }
 
-    .status-circle:hover span {
-      opacity: 1;
-      transition-delay: 0.1s;
-    }
+      .status-started {
+        background-color: rgb(60, 112, 255);
+      }
 
-    .status-circle:not(:hover) span {
-      transition-delay: 0s;
-      opacity: 0;
-    }
-  </style>
+      .status-circle span {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        white-space: nowrap;
+        font-size: 14px;
+        color: black;
+      }
+
+      .status-circle:hover span {
+        opacity: 1;
+        transition-delay: 0.1s;
+      }
+
+      .status-circle:not(:hover) span {
+        transition-delay: 0s;
+        opacity: 0;
+      }
+
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="text-center">
-      <h2>Daftar Proyek</h2>
-    </div>
-    <div th:each="proyek: ${listProyek}">
-      <div class="row justify-content-center m-2">
-        <div class="card position-relative" style="width: 30rem">
-          <div class="card-body">
-            <!-- Status Circle -->
-            <div th:classappend="${proyek.status.name() == 'ON_GOING'} ? 'status-circle status-ongoing' : 'status-circle status-finished'">
-              <span th:text="${proyek.status.getDisplayValue()}"></span>
-            </div>
-
-            <h5 th:text="${proyek.nama}" class="card-title"></h5>
-            <h6 th:text="'Developed by : '+${proyek.developer}" class="card-subtitle mb-2"></h6>
-            <a type="button" class="btn btn-md btn-primary"
-              th:href="@{/proyek/{idProyek}(idProyek=${proyek.id})}">Detail</a>
-            <a type="button" class="btn btn-md btn-warning"
-              th:href="@{/proyek/{idProyek}/update(idProyek=${proyek.id})}">Update</a>
-            <a type="button" class="btn btn-md btn-danger"
-              th:href="@{/proyek/{idProyek}/delete(idProyek=${proyek.id})}"
-              onclick="return confirm('Apakah Anda yakin ingin menghapus proyek ini?')">Delete</a>
-          </div>
+    <div class="container">
+        <div class="text-center my-4">
+            <h2>Daftar Proyek</h2>
         </div>
-      </div>
+        <form action="#" method="get" class="mb-2">
+          <div class="search-container">
+              <div class="input-group">
+                  <input type="text" class="form-control" name="nama" placeholder="Cari nama proyek" 
+                         th:value="${nama}">
+                  <select class="form-select" name="status" style="max-width: 150px;">
+                      <option value="" th:selected="${status == ''}">Status</option>
+                      <option value="STARTED" th:selected="${status == 'STARTED'}">STARTED</option>
+                      <option value="ONGOING" th:selected="${status == 'ONGOING'}">ONGOING</option>
+                      <option value="FINISHED" th:selected="${status == 'FINISHED'}">FINISHED</option>
+                  </select>
+                  <button type="submit" class="btn btn-primary">
+                      <i class="bi bi-search"></i>
+                  </button>
+              </div>
+          </div>
+      </form>
+
+        <div th:each="proyek: ${listProyek}">
+            <div class="row justify-content-center m-2">
+                <div class="card" style="width: 40rem;">
+                    <div class="card-body">
+
+                      <div th:classappend="${'status-circle status-' + #strings.toLowerCase(proyek.status)}">
+                        <span th:text="${proyek.status}"></span>
+                      </div>
+
+                        <h5 th:text="${proyek.nama}" class="card-title row my-3"></h5>
+                        <h6 th:if="${proyek.developer != null}" th:text="'Nama Developer : '+${proyek.developer.nama}" class="card-subtitle row my-3"></h6>
+                        <h6 th:if="${proyek.developer == null}" th:text="'Nama Developer : -'" class="card-subtitle row my-3"></h6>
+                        <div class="row my-3">
+                            <a type="button" class="btn btn-md btn-primary col-sm-2 mx-2"
+                               th:href="@{/proyek/{idProyek}(idProyek=${proyek.id})}">Detail
+                            </a>
+                            <a type="button" class="btn btn-md btn-warning col-sm-2 mx-2"
+                               th:href="@{/proyek/{idProyek}/update(idProyek=${proyek.id})}"> Update
+                            </a>
+                            <a type="button" class="btn btn-md btn-danger col-sm-2 mx-2"
+                               th:href="@{/proyek/{idProyek}/delete(idProyek=${proyek.id})}"> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center m-3">
+            <a type="button" class="btn btn-primary m-2" href="/proyek/add">Tambah Proyek</a>
+            <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
+        </div>
     </div>
-    <div class="text-center m-3">
-      <a type="button" class="btn btn-primary m-2" href="/proyek/add">Tambah Proyek</a>
-      <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
-    </div>
-  </div>
 </body>
 
 </html>

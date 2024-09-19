@@ -10,47 +10,80 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="card m-4 p-4">
-        <div class="card-body">
-            <div class="justify-content-center">
-                <h2>Update Proyek</h2>
-                <br>
-                <p>Proyek ID: <span th:text="${proyekDTO.id}">ID not set</span></p>
-                
-                <form th:action="@{/proyek/{id}/update(id=${proyekDTO.id})}" th:object="${proyekDTO}" method="POST">
-                    <input class="form-control" type="hidden" th:field="*{id}" />
-                    
-                    <label for="namaProyek">Nama Proyek:</label>
-                    <input class="form-control" type="text" th:field="*{nama}" id="namaProyek" required/>
-                    <br><br>
+    <div class="container">
+        <div class="text-center my-4">
+            <h2>Update Proyek</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="card" style="width: 60rem;">
+                <div class="card-body">
+                    <div>
+                        <form th:action="@{/proyek/update}" th:object="${proyekDTO}" method="POST">
+                            <input class="form-control" type="hidden" th:field="*{id}" th:value="*{id}"/>
 
-                    <label for="tanggalMulai">Tanggal Mulai:</label>
-                    <input class="form-control" type="date" th:field="*{tanggalMulai}" id="tanggalMulai" required/>
-                    <br><br>
+                            <div class="row my-3">
+                                <label for="nama-proyek" class="col-sm-2 fw-bold col-form-label">Nama Proyek</label>
+                                <p class="col-sm-1 fw-bold col-form-label" style="width: 2%">:</p>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" id="nama-proyek" th:field="*{nama}" th:value="*{nama}"/>
+                                </div>
+                            </div>
 
-                    <label for="tanggalSelesai">Tanggal Selesai:</label>
-                    <input class="form-control" type="date" th:field="*{tanggalSelesai}" id="tanggalSelesai" required/>
-                    <br><br>
+                            <div class="form-group row my-3">
+                                <label for="deskripsi" class="col-sm-2 fw-bold col-form-label">Deskripsi</label>
+                                <p class="col-sm-1 fw-bold col-form-label" style="width: 2%">:</p>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="deskripsi" th:field="*{deskripsi}" th:value="*{deskripsi}"></textarea>
+                                </div>
+                            </div>
 
-                    <label for="status">Status:</label>
-                    <select class="form-control" th:field="*{status}" id="status" required>
-                        <option value="ON_GOING">On Going</option>
-                        <option value="FINISHED">Finished</option>
-                    </select>
-                    <br><br>    
+                            <div class="form-group row my-3">
+                                <label for="tanggal-mulai" class="col-sm-2 fw-bold col-form-label">Tanggal Mulai</label>
+                                <p class="col-sm-1 fw-bold col-form-label" style="width: 2%">:</p>
+                                <div class="col-sm-3">
+                                    <input class="form-control" type="date" id="tanggal-mulai" th:field="*{tanggalMulai}" th:value="*{tanggalMulai}"/>
+                                </div>
 
-                    <label for="developer">Developer:</label>
-                    <input class="form-control" type="text" th:field="*{developer}" id="developer" required/>
-                    <br><br>
+                                <label for="tanggal-selesai" class="col-sm-2 fw-bold col-form-label">Tanggal Selesai</label>
+                                <p class="col-sm-1 fw-bold col-form-label" style="width: 2%">:</p>
+                                <div class="col-sm-3">
+                                    <input class="form-control" type="date" id="tanggal-selesai" th:field="*{tanggalSelesai}" th:value="*{tanggalSelesai}"/>
+                                </div>
+                            </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="/">Home</a>
-                </form>
+                            <div class="form-group row my-3">
+                                <label for="status" class="col-sm-2 col-form-label">Status</label>
+                                <p class="col-sm-1 fw-bold col-form-label" style="width: 2%">:</p>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="status" th:field="*{status}">
+                                        <option value="" disabled selected>Status Proyek...</option>
+                                        <option th:each="status : ${statusLevel}" th:value="${status}" th:text="${status}"
+                                                th:selected="${status} == *{status}"
+                                        ></option>
+                                    </select>
+                                </div>
+
+                                <label for="developer" class="col-sm-2 fw-bold col-form-label">Developer</label>
+                                <p class="col-sm-1 fw-bold col-form-label" style="width: 2%">:</p>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="developer" th:field="*{developer}">
+                                        <option value="" disabled selected>Daftar Developer...</option>
+                                        <option th:each="developer: ${listDeveloper}" th:value="${developer.id}" th:text="${developer.nama}"
+                                                th:selected="${developer.id} == *{developer.id}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a class="btn btn-primary" href="/">Home</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-  </div>
 </body>
-
 </html>

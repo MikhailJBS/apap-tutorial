@@ -1,71 +1,83 @@
 package apap.tutorial.manpromanpro.model;
-import apap.tutorial.manpromanpro.model.Status;
-
-import java.util.UUID;
 import java.util.Date;
+import java.util.UUID;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "proyek")
 public class Proyek {
-    private UUID id;
+    @Id
+    private UUID id = UUID.randomUUID();
+
+    @Column(name = "nama", nullable = false)
+    @NotNull
+    @Size(max = 30)
     private String nama;
+
+    @NotNull
+    @Column(name = "deskripsi", columnDefinition = "TEXT", nullable = false)
+    private String deskripsi;
+
+    @Column(name = "tanggal_mulai", columnDefinition = "DATE",  nullable = false)
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggalMulai;
+
+    @Column(name = "tanggal_selesai", columnDefinition = "DATE",  nullable = false)
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggalSelesai;
-    private Status status; 
-    private String developer;
 
-    public Proyek(String developer, UUID id, String nama, Status status, Date tanggalMulai, Date tanggalSelesai) {
-        this.developer = developer;
-        this.id = id;
-        this.nama = nama;
-        this.status = status;
-        this.tanggalMulai = tanggalMulai;
-        this.tanggalSelesai = tanggalSelesai;
-    }
-    
-    public UUID getId() {
-        return id;
-    }
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private Date createdAt;
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
-    public String getNama() {
-        return nama;
-    }
+    @NotNull
+    @Size(max = 30)
+    @Column(name = "status", nullable = false)
+    private String status; 
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_developer", referencedColumnName = "id")
+    private Developer developer;
 
-    public Date getTanggalMulai() {
-        return tanggalMulai;
-    }
+    @ManyToMany
+    @JoinTable(
+        name = "pekerja_proyek",
+        joinColumns = @JoinColumn(name = "id_proyek"),
+        inverseJoinColumns = @JoinColumn(name = "id_peekerja"))
+    List<Pekerja> listPekerja;
 
-    public void setTanggalMulai(Date tanggalMulai) {
-        this.tanggalMulai = tanggalMulai;
-    }
-
-    public Date getTanggalSelesai() {
-        return tanggalSelesai;
-    }
-
-    public void setTanggalSelesai(Date tanggalSelesai) {
-        this.tanggalSelesai = tanggalSelesai;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public String getDeveloper() {
-        return developer;
-    }
-
-    public void setDeveloper(String developer) {
-        this.developer = developer;
-    }
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 }

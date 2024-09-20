@@ -186,3 +186,101 @@ Digunakan untuk melakukan iterasi pada objek model yang telah dihubungkan dengan
 Digunakan untuk melakukan operasi kondisional pada objek model yang telah dihubungkan dengan form.
 
 (source: https://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html)
+
+---
+
+##  Tutorial 3
+
+###  Apa yang telah saya pelajari hari ini
+Pada Lab Tutorial 3 kali ini, saya telah mempelajari banyak hal terkait penggunaan database pada Spring Boot. Saya mempelajari bagaimana cara membuat database dengan Docker, bagaimana cara menghubungkan database dengan Spring Boot, serta bagaimana cara membuat relasi antar tabel di database. Saya juga mempelajari cara menggunakan JPA Repository untuk mengakses data dari database dan melakukan operasi CRUD, dan melakukan data processing lebih lanjut.
+
+
+###  Pertanyaan
+
+1. Jelaskan seluruh configuration properties (application, datasource, jpa) yang terdapat di dalam file application.yml!
+
+Application:
+* spring.application.name: Nama aplikasi Spring Boot, pada proyek ini bernama manpromanpro
+
+Datasource:
+* spring.datasource.url: URL dari database yang digunakan, pada proyek ini menggunakan database yang kita luncurkan dengan docker pada port 15001 dengan database yang bernama manpromanpro
+* spring.datasource.username: Username dari database yang digunakan, pada proyek ini menggunakan username default postgres
+* spring.datasource.password: Password dari database yang digunakan, pada proyek ini menggunakan password default postgres
+
+JPA:
+* spring.jpa.hibernate.ddl-auto: Mode DDL yang digunakan, pada proyek ini menggunakan mode create yang menyebabkan setiap kali aplikasi dijalankan, tabel akan dibuat ulang
+* spring.jpa.properties.hibernate.dialect: Dialect Hibernate yang digunakan, pada proyek ini menggunakan dialect PostgreSQL
+* spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: Konfigurasi Hibernate yang digunakan, pada proyek ini menggunakan konfigurasi true
+
+2. Pada tutorial ini, kita menggunakan docker container untuk membentuk database. Apa keuntungan menggunakan docker container dibandingkan tanpa menggunakannya?
+
+Berikut adalah beberapa keuntungan menggunakan docker container dibandingkan tanpa menggunakannya:
+- Portability: Docker container dapat dijalankan di berbagai platform yang mendukung Docker, sehingga memudahkan dalam deployment aplikasi.
+- Scalability: Docker container memungkinkan untuk membuat dan menghapus container dengan cepat, sehingga memudahkan dalam scaling aplikasi.
+- Isolation: Docker container memungkinkan untuk menjalankan aplikasi dalam lingkungan yang terisolasi, sehingga meminimalisir konflik antar aplikasi.
+- Easy Configuration: Docker container memungkinkan untuk membuat dan mengatur container dengan mudah, sehingga memudahkan dalam konfigurasi aplikasi.
+- Automation & CI/CD: Docker container memungkinkan untuk membuat dan mengatur container secara otomatis, sehingga memudahkan dalam otomatisasi deployment aplikasi.
+
+
+3. Jelaskan secara singkat apa itu dan kegunaan dari annotation dibawah ini
+(@Entity, @Table, @Column)
+
+* @Entity: Annotation ini digunakan untuk menandai bahwa sebuah class merupakan sebuah entity dalam ERD, sehingga class tersebut akan dipetakan ke tabel di dalam database. Kegunaannya adalah untuk memberitahu JPA bahwa class tersebut merupakan entity dan akan dikelola oleh JPA.
+
+* @Table: Annotation ini digunakan untuk menandai bahwa sebuah class akan dijadikan sebagai sebuah tabel di database, dan digunakan untuk mengatur nama tabel yang akan dipetakan di database. Kegunaannya adalah untuk memberi nama atau mengatur nama tabel. Tanpa anotasi ini, JPA akan menggunakan nama class sebagai nama tabel tersebut
+
+* @Column: Annotation ini digunakan untuk menandai bahwa sebuah field akan dijadikan sebagai sebuah kolom di database, dan digunakan untuk mengatur nama kolom yang akan dijadikan.
+
+
+4. Pada model, kita dapat menentukan relasi antarmodel dengan menggunakan JPA Annotation. Sebutkan seluruh JPA Annotation yang dapat digunakan untuk mendefinisikan relasi antarmodel beserta perbedaannya!
+
+Berikut adalah beberapa JPA Annotation yang dapat digunakan untuk mendefinisikan relasi antarmodel:
+
+* @OneToOne: Annotation ini digunakan untuk mendefinisikan relasi one-to-one antarmodel. Perbedaannya adalah bahwa setiap instance dari entity akan memiliki satu instance dari entity lainnya. Contohnya: Setiap User memiliki satu Profile.
+
+* @OneToMany: Annotation ini digunakan untuk mendefinisikan relasi one-to-many antarmodel. Perbedaannya adalah bahwa setiap instance dari entity akan memiliki banyak instance dari entity lainnya. Contohnya: Seorang Author memiliki banyak Book. 
+
+* @ManyToOne: Annotation ini digunakan untuk mendefinisikan relasi many-to-one antarmodel. Perbedaannya adalah bahwa banyak instance dari entity akan memiliki satu instance dari entity lainnya. Contohnya: Banyak Book ditulis oleh satu Author.
+
+* @ManyToMany: Annotation ini digunakan untuk mendefinisikan relasi many-to-many antarmodel. Perbedaannya adalah bahwa banyak instance dari entity akan memiliki banyak instance dari entity lainnya. Contohnya: Banyak Student bisa mengambil banyak Course.
+
+
+5. Pada model Proyek, terdapat annotation @JoinTable seperti berikut:
+```
+@JoinTable(
+    name = "pekerja_proyek",
+    joinColumns = @JoinColumn(name = "id_proyek"),
+    inverseJoinColumns = @JoinColumn(name = "id_peekerja"))
+List<Pekerja> listPekerja;
+```
+Jelaskan kegunaan annotation tersebut beserta seluruh parameternya!
+
+* `@JoinTable`: digunakan untuk menentukan tabel penghubung yang mengelola hubungan antara dua entitas. Dalam relasi Many-to-Many, setiap entitas akan memiliki banyak hubungan dengan entitas lainnya, sehingga diperlukan tabel join untuk menyimpan hubungan tersebut.
+
+Parameter:
+* `name`: digunakan untuk menentukan nama tabel join yang akan digunakan. Pada proyek ini, nama tabel join yang digunakan adalah "pekerja_proyek".
+
+* `joinColumns`: digunakan untuk menentukan kolom yang akan dijadikan sebagai foreign key dari entitas yang memiliki relasi. Pada proyek ini, kolom "id_proyek" akan dijadikan sebagai foreign key dari entitas Proyek.
+
+* `inverseJoinColumns`: digunakan untuk menentukan kolom yang akan dijadikan sebagai foreign key dari entitas lain yang memiliki relasi. Pada proyek ini, kolom "id_pekerja" akan dijadikan sebagai foreign key dari entitas Pekerja.
+
+* `List<Pekerja> listPekerja`: digunakan untuk menyimpan daftar pekerja yang bekerja pada proyek tersebut.
+
+
+6. Jelaskan mengapa kita harus membentuk JPA Repository!
+
+JPA Repository digunakan untuk mengakses dan memanipulasi data dari database. Dengan menggunakan JPA Repository, kita dapat melakukan operasi CRUD (Create, Read, Update, Delete) pada data dengan mudah dan efisien.
+
+JPA Repository menyediakan berbagai method yang dapat digunakan untuk mengakses data dari database, sehingga memudahkan dalam pengembangan aplikasi. Selain itu, JPA Repository juga menyediakan fitur-fitur seperti pagination, sorting, dan query methods yang dapat digunakan untuk mengakses data dengan lebih efisien.
+
+Beberapa keuntungan dari menggunakan JPA Repository adalah: Tidak perlu menulis query SQL secara manual, Operasi CRUD tanpa adanya boilerplate code, dukungan yang baik untuk pembuatan Custom Query.
+
+7. Sebutkan beberapa alternatif dari Java Faker!
+
+Beberapa alternatif dari Java Faker adalah:
+* RandomBeans (EasyRandom): Library yang digunakan untuk membuat objek Java secara acak berdasarkan tipe dan struktur kelas untuk kebutuhan pengujian.
+* MockNeat: Library yang digunakan untuk membuat data palsu secara acak untuk pengujian dan pengembangan.
+* DataFactory: Library yang digunakan untuk membuat data palsu secara acak untuk pengujian dan pengembangan. Digunakan untuk mengisi database dengan data test atau pembuatan mock object.
+* JFairy: Library yang digunakan untuk membuat data palsu secara acak dengan mudah dan nyaman.
+* Chance.js: Library yang digunakan untuk membuat data palsu secara acak untuk pengujian dan pengembangan yang dibuat untuk aplikasi berbasis JavaScript.
+

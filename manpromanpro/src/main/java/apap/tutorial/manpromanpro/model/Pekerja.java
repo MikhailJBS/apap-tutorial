@@ -12,7 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.Where;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 import java.util.List;
 import jakarta.persistence.GeneratedValue;
 
@@ -22,6 +26,7 @@ import jakarta.persistence.GeneratedValue;
 @AllArgsConstructor
 @Entity
 @Table(name = "pekerja")
+@Where(clause = "deleted_at IS NULL")
 public class Pekerja {
     
     @Id
@@ -50,4 +55,6 @@ public class Pekerja {
     @ManyToMany
     List<Proyek> listProyek;
 
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 }

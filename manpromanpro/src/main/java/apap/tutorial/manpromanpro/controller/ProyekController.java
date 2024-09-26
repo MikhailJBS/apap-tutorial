@@ -43,7 +43,8 @@ public class ProyekController {
     }
 
     @GetMapping("/")
-    private String home() {
+    private String home(Model model) {
+        model.addAttribute("currentPage", "home");
         return "home";
     }
 
@@ -56,6 +57,7 @@ public class ProyekController {
         model.addAttribute("listDeveloper", developerService.getAllDeveloper());
         model.addAttribute("statusLevel", StatusLevel.values());
         model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
+        model.addAttribute("currentPage", "proyek");
 
         return "form-add-proyek";
     }
@@ -83,6 +85,7 @@ public class ProyekController {
         
         model.addAttribute("responseMessage",
                 String.format("Proyek %s dengan ID %s berhasil ditambahkan.", proyek.getNama(), proyek.getId()));
+        model.addAttribute("currentPage", "proyek");
 
         return "response-proyek";
     }
@@ -99,6 +102,7 @@ public class ProyekController {
         model.addAttribute("listDeveloper", developerService.getAllDeveloper());
         model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
         model.addAttribute("statusLevel", StatusLevel.values());
+        model.addAttribute("currentPage", "proyek");
 
         return "form-add-proyek";
     }
@@ -111,6 +115,7 @@ public class ProyekController {
         model.addAttribute("listDeveloper", developerService.getAllDeveloper());
         model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
         model.addAttribute("statusLevel", StatusLevel.values());
+        model.addAttribute("currentPage", "proyek");
 
         return "form-add-proyek";
     }
@@ -120,6 +125,7 @@ public class ProyekController {
         var proyek = proyekService.getProyekById(id);
 
         model.addAttribute("proyek", proyek);
+        model.addAttribute("currentPage", "proyek");
 
         return "view-proyek";
     }
@@ -136,10 +142,13 @@ public class ProyekController {
         proyekDTO.setTanggalSelesai(proyek.getTanggalSelesai());
         proyekDTO.setStatus(proyek.getStatus());
         proyekDTO.setDeveloper(proyek.getDeveloper());
+        proyekDTO.setListPekerja(proyek.getListPekerja());
 
         model.addAttribute("proyekDTO", proyekDTO);
         model.addAttribute("listDeveloper", developerService.getAllDeveloper());
         model.addAttribute("statusLevel", StatusLevel.values());
+        model.addAttribute("currentPage", "proyek");
+        model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
 
         return "form-update-proyek";
     }
@@ -162,13 +171,46 @@ public class ProyekController {
         proyekFromDTO.setTanggalSelesai(proyekDTO.getTanggalSelesai());
         proyekFromDTO.setStatus(proyekDTO.getStatus());
         proyekFromDTO.setDeveloper(proyekDTO.getDeveloper());
+        proyekFromDTO.setListPekerja(proyekDTO.getListPekerja());
 
         var proyek = proyekService.updateProyek(proyekFromDTO);
 
         model.addAttribute("responseMessage",
                 String.format("Proyek %s dengan ID %s berhasil diupdate.", proyek.getNama(), proyek.getId()));
+        model.addAttribute("currentPage", "proyek");
+
 
         return "response-proyek";
+    }
+
+    @PostMapping(value="/proyek/update", params={"addRow"})
+    public String updateAddRowDeveloperProyek(@ModelAttribute UpdateProyekRequestDTO updateProyekRequestDTO, Model model) {
+        if (updateProyekRequestDTO.getListPekerja() == null || updateProyekRequestDTO.getListPekerja().isEmpty()) {
+            updateProyekRequestDTO.setListPekerja(new ArrayList<>());
+        }
+
+        updateProyekRequestDTO.getListPekerja().add(new Pekerja());
+
+        model.addAttribute("proyekDTO", updateProyekRequestDTO);
+        model.addAttribute("listDeveloper", developerService.getAllDeveloper());
+        model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
+        model.addAttribute("statusLevel", StatusLevel.values());
+        model.addAttribute("currentPage", "proyek");
+
+        return "form-update-proyek";
+    }
+
+    @PostMapping(value="/proyek/update", params={"deleteRow"})
+    public String updateDeleteRowDeveloperProyek(@ModelAttribute UpdateProyekRequestDTO updateProyekRequestDTO, @RequestParam(value = "deleteRow") int row, Model model) {
+        updateProyekRequestDTO.getListPekerja().remove(row);
+
+        model.addAttribute("proyekDTO", updateProyekRequestDTO);
+        model.addAttribute("listDeveloper", developerService.getAllDeveloper());
+        model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
+        model.addAttribute("statusLevel", StatusLevel.values());
+        model.addAttribute("currentPage", "proyek");
+
+        return "form-update-proyek";
     }
 
     @GetMapping("/proyek/{id}/delete")
@@ -178,6 +220,7 @@ public class ProyekController {
     
         model.addAttribute("responseMessage",
                 String.format("Proyek %s dengan ID %s berhasil dihapus.", proyek.getNama(), proyek.getId()));
+        model.addAttribute("currentPage", "proyek");
     
         return "response-proyek";
     }    
@@ -194,7 +237,7 @@ public class ProyekController {
         model.addAttribute("listProyek", listProyek);
         model.addAttribute("nama", nama); // Untuk menampilkan kembali input nama di search bar
         model.addAttribute("status", status); // Untuk menampilkan kembali pilihan status di dropdown
-
+        model.addAttribute("currentPage", "proyek-viewall");
 
         return "viewall-proyek";
     }

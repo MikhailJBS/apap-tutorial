@@ -22,6 +22,7 @@ public class PekerjaController {
     public String formAddPekerja(Model model) {
         var pekerjaDTO = new AddPekerjaRequestDTO();
         model.addAttribute("pekerjaDTO", pekerjaDTO);
+        model.addAttribute("currentPage", "pekerja");
         return "form-add-pekerja";
     }
 
@@ -37,6 +38,7 @@ public class PekerjaController {
 
         model.addAttribute("responseMessage",
             String.format("Pekerja %s dengan ID %s berhasil ditambahkan", pekerja.getNama(), pekerja.getId()));
+        model.addAttribute("currentPage", "pekerja");
         return "response-pekerja";
     }
 
@@ -47,12 +49,15 @@ public class PekerjaController {
 
         model.addAttribute("listPekerja", listPekerja);
         model.addAttribute("deleteDTO", deleteDTO);
+        model.addAttribute("currentPage", "pekerja-viewall");
         return "viewall-pekerja";
     }
 
     @PostMapping("/pekerja/delete")
-    public String deleteMultiplePekerja(@ModelAttribute DeleteMultiplePekerjaDTO deleteMultiplePekerjaDTO) {
+    public String deleteMultiplePekerja(@ModelAttribute DeleteMultiplePekerjaDTO deleteMultiplePekerjaDTO, Model model) {
         pekerjaService.deleteListPekerja(deleteMultiplePekerjaDTO.getListPekerja());
+
+        model.addAttribute("currentPage", "pekerja");
 
         return "success-delete-pekerja";
     }

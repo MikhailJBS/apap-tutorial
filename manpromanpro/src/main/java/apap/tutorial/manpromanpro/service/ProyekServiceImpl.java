@@ -47,13 +47,17 @@ public class ProyekServiceImpl implements ProyekService {
             getProyek.setTanggalSelesai(proyek.getTanggalSelesai());
             getProyek.setStatus(proyek.getStatus());
             getProyek.setDeveloper(proyek.getDeveloper());
-            proyekDb.save(getProyek);
-
+    
+            // Update the list of pekerja
+            getProyek.setListPekerja(proyek.getListPekerja());
+            
+            proyekDb.save(getProyek);  // Persist the updated project
+    
             return getProyek;
         }
-
         return null;
     }
+    
 
     @Override
     public void deleteProyek(Proyek proyek) {

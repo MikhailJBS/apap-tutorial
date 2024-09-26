@@ -2,6 +2,8 @@ package apap.tutorial.manpromanpro.service;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
+
 import apap.tutorial.manpromanpro.model.Pekerja;
 import apap.tutorial.manpromanpro.repository.PekerjaDb;
 import org.springframework.data.domain.Sort;
@@ -36,7 +38,10 @@ public class PekerjaServiceImpl implements PekerjaService {
             }
         }
 
-        pekerjaDb.deleteAll(pekerjaToDelete);
+        for (Pekerja pekerja : pekerjaToDelete) {
+            pekerja.setDeletedAt(new Date());
+            pekerjaDb.save(pekerja);
+        }
     }
     
 }

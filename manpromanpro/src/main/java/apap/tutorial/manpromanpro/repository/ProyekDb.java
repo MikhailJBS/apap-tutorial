@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 public interface ProyekDb extends JpaRepository<Proyek, UUID> {
 
     List<Proyek> findByDeletedAtIsNull();
-    List<Proyek> findByNamaContainingIgnoreCaseAndStatusContainingIgnoreCaseAndDeletedAtIsNull(String nama, String status, Sort sort);
+    List<Proyek> findByNamaContainingIgnoreCaseAndStatusContainingIgnoreCase(String nama, String status, Sort sort);
 }

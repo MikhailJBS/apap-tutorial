@@ -24,7 +24,7 @@ public class ProyekServiceImpl implements ProyekService {
 
     @Override
     public List<Proyek> getAllProyek() {
-        return proyekDb.findByDeletedAtIsNull();
+        return proyekDb.findAll();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ProyekServiceImpl implements ProyekService {
         Sort sortByNama = Sort.by(Sort.Order.by("nama").ignoreCase());
         
         // Menggunakan derived query method untuk pencarian proyek
-        return proyekDb.findByNamaContainingIgnoreCaseAndStatusContainingIgnoreCaseAndDeletedAtIsNull(nama, status, sortByNama);
+        return proyekDb.findByNamaContainingIgnoreCaseAndStatusContainingIgnoreCase(nama, status, sortByNama);
     }
 
 }

@@ -1,6 +1,9 @@
 package apap.tutorial.manpromanpro.dto.request;
 
+import java.util.List;
+
 import apap.tutorial.manpromanpro.model.Developer;
+import apap.tutorial.manpromanpro.model.Pekerja;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
@@ -31,6 +34,10 @@ public class AddProyekRequestDTO {
     @Pattern(regexp = "STARTED|ONGOING|FINISHED", message = "Status harus STARTED, ONGOING, atau FINISHED")
     private String status;
 
+    @NotNull(message = "Pekerja proyek tidak boleh kosong")
+    private List<Pekerja> listPekerja;
+
+    @NotNull(message = "Developer proyek tidak boleh kosong")
     private Developer developer;
 
     @AssertTrue(message = "Tanggal selesai harus setelah tanggal mulai")

@@ -3,6 +3,7 @@ package apap.tutorial.manpromanpro.controller;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import apap.tutorial.manpromanpro.dto.request.AddProyekRequestDTO;
 import apap.tutorial.manpromanpro.dto.request.UpdateProyekRequestDTO;
 import apap.tutorial.manpromanpro.model.Proyek;
+import apap.tutorial.manpromanpro.model.Pekerja;
 import apap.tutorial.manpromanpro.service.DeveloperService;
 import apap.tutorial.manpromanpro.service.ProyekService;
+import apap.tutorial.manpromanpro.service.PekerjaService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -29,6 +32,9 @@ public class ProyekController {
 
     @Autowired
     private DeveloperService developerService;
+
+    @Autowired
+    private PekerjaService pekerjaService;
 
     enum StatusLevel {
         STARTED,
@@ -45,12 +51,11 @@ public class ProyekController {
     public String addProyekForm(Model model) {
 
         var proyekDTO = new AddProyekRequestDTO();
-        var listDeveloper = developerService.getAllDeveloper();
 
         model.addAttribute("proyekDTO", proyekDTO);
         model.addAttribute("listDeveloper", developerService.getAllDeveloper());
         model.addAttribute("statusLevel", StatusLevel.values());
-        model.addAttribute("listDeveloper", listDeveloper);
+        model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
 
         return "form-add-proyek";
     }
@@ -72,6 +77,7 @@ public class ProyekController {
         proyek.setTanggalSelesai(proyekDTO.getTanggalSelesai());
         proyek.setStatus(proyekDTO.getStatus());
         proyek.setDeveloper(proyekDTO.getDeveloper());
+        proyek.setListPekerja(proyekDTO.getListPekerja());
 
         proyekService.addProyek(proyek);
         
@@ -79,6 +85,34 @@ public class ProyekController {
                 String.format("Proyek %s dengan ID %s berhasil ditambahkan.", proyek.getNama(), proyek.getId()));
 
         return "response-proyek";
+    }
+    
+    @PostMapping(value="/proyek/add", params={"addRow"})
+    public String addRowDeveloperProyek(@ModelAttribute AddProyekRequestDTO addProyekRequestDTO, Model model) {
+        if (addProyekRequestDTO.getListPekerja() == null || addProyekRequestDTO.getListPekerja().isEmpty()) {
+            addProyekRequestDTO.setListPekerja(new ArrayList<>());
+        }
+
+        addProyekRequestDTO.getListPekerja().add(new Pekerja());
+
+        model.addAttribute("proyekDTO", addProyekRequestDTO);
+        model.addAttribute("listDeveloper", developerService.getAllDeveloper());
+        model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
+        model.addAttribute("statusLevel", StatusLevel.values());
+
+        return "form-add-proyek";
+    }
+
+    @PostMapping(value="/proyek/add", params={"deleteRow"})
+    public String deleteRowDeveloperProyek(@ModelAttribute AddProyekRequestDTO addProyekRequestDTO, @RequestParam(value = "deleteRow") int row, Model model) {
+        addProyekRequestDTO.getListPekerja().remove(row);
+
+        model.addAttribute("proyekDTO", addProyekRequestDTO);
+        model.addAttribute("listDeveloper", developerService.getAllDeveloper());
+        model.addAttribute("listPekerjaExisting", pekerjaService.getAllPekerja());
+        model.addAttribute("statusLevel", StatusLevel.values());
+
+        return "form-add-proyek";
     }
 
     @GetMapping("/proyek/{id}")
@@ -160,6 +194,7 @@ public class ProyekController {
         model.addAttribute("listProyek", listProyek);
         model.addAttribute("nama", nama); // Untuk menampilkan kembali input nama di search bar
         model.addAttribute("status", status); // Untuk menampilkan kembali pilihan status di dropdown
+
 
         return "viewall-proyek";
     }

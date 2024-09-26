@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTable Proyek</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0d6efd;
+        }
+
+        table.dataTable {
+            width: 100%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table.dataTable thead {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        table.dataTable thead th {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table.dataTable tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table.dataTable tbody td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Daftar Proyek</h1>
+
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID Proyek</th>
+                <th>Nama Proyek</th>
+                <th>Deskripsi</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Selesai</th>
+                <th>Status</th>
+                <th>Developer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="proyek : ${listProyek}">
+                <td th:text="${proyek.id}"></td>
+                <td th:text="${proyek.nama}"></td>
+                <td th:text="${proyek.deskripsi}"></td>
+                <td th:text="${proyek.tanggalMulai}"></td>
+                <td th:text="${proyek.tanggalSelesai}"></td>
+                <td th:text="${proyek.status}"></td>
+                <td th:text="${proyek.developer.nama}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [5, 10, 25, 50],
+                "pageLength": 10,
+                "language": {
+                    "search": "Filter records:"
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

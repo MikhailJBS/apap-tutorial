@@ -242,4 +242,11 @@ public class ProyekController {
         return "viewall-proyek";
     }
 
+    @GetMapping("/proyek/datatable")
+    public String datatableProyek(Model model) {
+        List<Proyek> listProyek = proyekService.getAllProyek("", "");
+        model.addAttribute("listProyek", listProyek);
+        return "datatable-proyek";
+    }
+
 }

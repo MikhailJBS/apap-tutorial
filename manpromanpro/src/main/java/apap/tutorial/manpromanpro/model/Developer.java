@@ -1,32 +1,24 @@
 package apap.tutorial.manpromanpro.model;
-import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "developer")
 public class Developer {
@@ -44,7 +36,7 @@ public class Developer {
     private String alamat;
 
     @NotNull
-    @Column(name = "tanggal_berdiri",columnDefinition = "DATE", nullable = false)
+    @Column(name = "tanggal_berdiri", columnDefinition = "DATE", nullable = false)
     private Date tanggalBerdiri;
 
     @Size(max = 30)
@@ -53,14 +45,16 @@ public class Developer {
     private String email;
 
     @OneToMany(mappedBy = "developer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @SQLRestriction("deleted_at IS NULL")
     private List<Proyek> listProyek;
 
     @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", updatable = false, nullable = false)
     private Date createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
-    
 }

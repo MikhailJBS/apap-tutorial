@@ -1,54 +1,123 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
- 
+
 <head>
     <meta charset="UTF-8">
-    <object th:include="~{fragments/common :: js}" th:remove="tag "></object>
-    <object th:include="~{fragments/common :: css}" th:remove="tag "></object>
-    <title>View Pekerja</title>
+    <title>Daftar Pekerja</title>
+    <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
 </head>
- 
+
 <body>
     <nav th:replace="~{fragments/navbar :: navbar}"></nav>
     <div class="container">
         <div class="text-center my-4">
             <h2>Daftar Pekerja</h2>
         </div>
-        <form th:action="@{/pekerja/delete}" method="post" th:object="${deleteDTO}">
-            <table class="table">
+        <div id="alert-container"></div>
+        <div>
+            <table id="table-pekerja" class="table table-striped">
                 <div class="alert alert-warning" role="alert">
                     Catatan: Pekerja yang tidak dapat terpilih sudah memiliki relasi dengan suatu proyek
                 </div>
                 <thead>
                     <tr>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Usia</th>
-                        <th scope="col">Pekerjaan</th>
-                        <th scope="col">Biografi</th>
+                        <th scope="col" class="text-center">Nama</th>
+                        <th scope="col" class="text-center">Usia</th>
+                        <th scope="col" class="text-center">Pekerjaan</th>
+                        <th scope="col" class="text-center">Proyek</th>
+                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="pekerja : ${listPekerja}">
                         <td th:text="${pekerja.nama}"></td>
-                        <td th:text="${pekerja.usia}"></td>
+                        <td class="text-center" th:text="${pekerja.usia}"></td>
                         <td th:text="${pekerja.pekerjaan}"></td>
-                        <td th:text="${pekerja.biografi}"></td>
-
                         <td>
-                            <input type="checkbox" class="form-check-input" id="flexCheckDefault"
-                                th:field="*{listPekerja}" th:value="${pekerja.id}">
+                            <ul>
+                                <li th:each="proyek: ${pekerja.getListProyek()}" th:text="${proyek.nama}"></li>
+                            </ul>
                         </td>
-
+                        <td>
+                            <div class="text-center">
+                                <a type="button" class="btn btn-md btn-primary"
+                                    th:href="@{/pekerja/rest/{idPekerja}(idPekerja=${pekerja.id})}">Detail
+                                </a>
+                                <a type="button" class="btn btn-md btn-warning"
+                                    th:href="@{/pekerja/rest/{idPekerja}/update(idPekerja=${pekerja.id})}">Update
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <input type="checkbox" class="form-check-input delete-checkbox" 
+                                    th:value="${pekerja.id}"
+                                    th:disabled="${pekerja.getListProyek() != null and pekerja.getListProyek().size() > 0}">
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-        <div class="text-center m-3">
-            <button type="submit" class="btn btn-primary" href="/pekerja/delete">Delete Selected</button>
-            <a type="button" class="btn btn-primary m-2" href="/pekerja/add">Tambah Pekerja</a>
-            <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
+            <div class="text-center m-3">
+                <button type="button" class="row btn btn-danger" id="deleteSelected">Delete Selected</button>
+                <div>
+                    <a type="button" class="btn btn-primary m-2" href="/pekerja/rest/add">Tambah Pekerja</a>
+                    <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
+                </div>
+            </div>
         </div>
-    </form>    
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#table-pekerja').DataTable({
+                "lengthMenu": [10, 20, 30],
+            });
+
+            function showAlert(message, type) {
+                const alertHtml = `
+                    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+                $('#alert-container').html(alertHtml);
+            }
+
+            $('#deleteSelected').click(function() {
+                const selectedIds = [];
+                $('.delete-checkbox:checked').each(function() {
+                    selectedIds.push(parseInt($(this).val()));
+                });
+
+                if (selectedIds.length === 0) {
+                    showAlert('Please select at least one pekerja to delete', 'warning');
+                    return;
+                }
+
+                if (confirm('Are you sure you want to delete the selected pekerja(s)?')) {
+                    $.ajax({
+                        url: '/api/pekerja/delete',
+                        type: 'DELETE',
+                        contentType: 'application/json',
+                        data: JSON.stringify(selectedIds),
+                        success: function(response) {
+                            showAlert(response.message, 'success');
+                            // Reload the page after successful deletion
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
+                        },
+                        error: function(xhr) {
+                            const response = JSON.parse(xhr.responseText);
+                            showAlert(response.message, 'danger');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
- 
 </html>

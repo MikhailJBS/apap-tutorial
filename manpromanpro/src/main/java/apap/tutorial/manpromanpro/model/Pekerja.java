@@ -1,40 +1,37 @@
 package apap.tutorial.manpromanpro.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.Where;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
-import jakarta.persistence.GeneratedValue;
 
-@Getter
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "pekerja")
-@Where(clause = "deleted_at IS NULL")
+@SQLDelete(sql = "UPDATE pekerja SET deleted_at = NOW() WHERE id=?")
+@SQLRestriction("deleted_at IS NULL")
 public class Pekerja {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Size(max = 30)
+    @Size(max = 50)
     @Column(name = "nama", nullable = false)
     private String nama;
 
@@ -42,18 +39,27 @@ public class Pekerja {
     @Column(name = "usia", nullable = false)
     private int usia;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     @Size(max = 30)
     @Column(name = "pekerjaan", nullable = false)
     private String pekerjaan;
 
-    @NotNull
-    @Column(name = "biografi",columnDefinition = "TEXT", nullable = false)
+    @Column(name = "biografi", columnDefinition = "TEXT")
     private String biografi;
 
-    @ManyToMany
-    List<Proyek> listProyek;
+    @ManyToMany(mappedBy = "listPekerja", fetch = FetchType.LAZY)
+    @SQLRestriction("deleted_at IS NULL")
+    private List<Proyek> listProyek;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", updatable = false, nullable = false)
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at", nullable = false)
+    private Date updatedAt;
 
     @Column(name = "deleted_at")
     private Date deletedAt;

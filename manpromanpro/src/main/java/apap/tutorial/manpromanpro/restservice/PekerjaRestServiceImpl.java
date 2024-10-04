@@ -40,7 +40,6 @@ public class PekerjaRestServiceImpl implements PekerjaRestService {
 
         pekerja.setListProyek(new ArrayList<>());
         if (pekerjaDTO.getListProyek() != null) {
-            // Convert list to Set to remove duplicates
             Set<UUID> uniqueProyekIds = new HashSet<>(pekerjaDTO.getListProyek());
             
             uniqueProyekIds.forEach(idProyek -> {

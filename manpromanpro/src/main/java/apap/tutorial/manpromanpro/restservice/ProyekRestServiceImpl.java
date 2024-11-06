@@ -1,25 +1,26 @@
 package apap.tutorial.manpromanpro.restservice;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import apap.tutorial.manpromanpro.model.Developer;
+import apap.tutorial.manpromanpro.model.Pekerja;
+import apap.tutorial.manpromanpro.model.Proyek;
+import apap.tutorial.manpromanpro.repository.DeveloperDb;
+import apap.tutorial.manpromanpro.repository.PekerjaDb;
+import apap.tutorial.manpromanpro.repository.ProyekDb;
 import apap.tutorial.manpromanpro.restdto.request.AddProyekRequestRestDTO;
 import apap.tutorial.manpromanpro.restdto.request.UpdateProyekRequestRestDTO;
 import apap.tutorial.manpromanpro.restdto.response.DeveloperResponseDTO;
 import apap.tutorial.manpromanpro.restdto.response.PekerjaResponseDTO;
 import apap.tutorial.manpromanpro.restdto.response.ProyekResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import apap.tutorial.manpromanpro.model.Pekerja;
-import apap.tutorial.manpromanpro.model.Proyek;
-import apap.tutorial.manpromanpro.model.Developer;
-import apap.tutorial.manpromanpro.repository.DeveloperDb;
-import apap.tutorial.manpromanpro.repository.PekerjaDb;
-import apap.tutorial.manpromanpro.repository.ProyekDb;
-
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -180,5 +181,24 @@ public class ProyekRestServiceImpl implements ProyekRestService {
         return developerResponseDTO;
     }
 
+    @Override
+    public List<ProyekResponseDTO> getProyekByNama(String namaProyek) {
+        List<Proyek> proyekList = proyekDb.findByNamaIgnoreCase(namaProyek);
+        List<ProyekResponseDTO> proyekResponseDTOList = new ArrayList<>();
+        proyekList.forEach(proyek -> {
+            proyekResponseDTOList.add(proyekToProyekResponseDTO(proyek));
+        });
+        return proyekResponseDTOList;
+    }
+
+    @Override
+    public List<ProyekResponseDTO> getAllProyek() {
+        List<Proyek> proyekList = proyekDb.findAll();
+        List<ProyekResponseDTO> proyekResponseDTOList = new ArrayList<>();
+        proyekList.forEach(proyek -> {
+            proyekResponseDTOList.add(proyekToProyekResponseDTO(proyek));
+        });
+        return proyekResponseDTOList;
+    }
     
 }

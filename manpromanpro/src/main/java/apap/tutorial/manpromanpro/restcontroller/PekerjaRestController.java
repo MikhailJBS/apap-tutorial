@@ -136,25 +136,27 @@ public class PekerjaRestController {
     @DeleteMapping("/delete")
     public ResponseEntity<?> deletePekerja(@RequestBody List<Long> listIdPekerja) {
         var baseResponseDTO = new BaseResponseDTO<String>();
-        
+    
         try {
+            // Call the service to delete workers
             pekerjaRestService.deletePekerja(listIdPekerja);
             baseResponseDTO.setStatus(HttpStatus.OK.value());
-            baseResponseDTO.setMessage("Pekerja berhasil dihapus");
+            baseResponseDTO.setMessage("List pekerja berhasil dihapus");
             baseResponseDTO.setTimestamp(new Date());
             return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             baseResponseDTO.setStatus(HttpStatus.NOT_FOUND.value());
-            baseResponseDTO.setMessage("Data pekerja tidak ditemukan");
+            baseResponseDTO.setMessage(e.getMessage());
             baseResponseDTO.setTimestamp(new Date());
             return new ResponseEntity<>(baseResponseDTO, HttpStatus.NOT_FOUND);
         } catch (ConstraintViolationException e) {
             baseResponseDTO.setStatus(HttpStatus.BAD_REQUEST.value());
-            baseResponseDTO.setMessage("Data pekerja tidak dapat dihapus karena ada pelanggaran aturan integritas");
+            baseResponseDTO.setMessage(e.getMessage());
             baseResponseDTO.setTimestamp(new Date());
             return new ResponseEntity<>(baseResponseDTO, HttpStatus.BAD_REQUEST);
         }
     }
+    
 
     
 

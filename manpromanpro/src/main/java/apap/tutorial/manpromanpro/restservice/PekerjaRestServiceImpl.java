@@ -179,15 +179,23 @@ public class PekerjaRestServiceImpl implements PekerjaRestService {
 
     @Override
     public void deletePekerja(List<Long> listIdPekerja) throws EntityNotFoundException, ConstraintViolationException {
-        for (Long id : listIdPekerja) {
-            var pekerja = pekerjaDb.findById(id).orElseThrow(() -> new EntityNotFoundException("Pekerja with ID " + id + " not found"));
-    
-            if (pekerja.getListProyek() == null || pekerja.getListProyek().isEmpty()) {
-                pekerja.setDeletedAt(new Date());
-            } else {
-                throw new ConstraintViolationException("Cannot delete pekerja assigned to proyek", null);
+        // Ensure the list contains only unique IDs
+        Set<Long> uniqueIdPekerja = new HashSet<>(listIdPekerja);
+        
+        for (Long id : uniqueIdPekerja) {
+            // Find the worker by ID or throw an exception if not found
+            Pekerja pekerja = pekerjaDb.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Pekerja dengan ID " + id + " tidak ditemukan"));
+            
+            // Check if the worker is still assigned to any project
+            if (pekerja.getListProyek() != null && !pekerja.getListProyek().isEmpty()) {
+                throw new ConstraintViolationException("Pekerja dengan ID " + id + " masih memiliki proyek", null);
             }
+    
+            // Soft delete the worker by setting the deletedAt timestamp
+            pekerja.setDeletedAt(new Date());
+            pekerjaDb.save(pekerja);
         }
-    }
+    }    
     
 }

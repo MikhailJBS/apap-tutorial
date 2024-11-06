@@ -76,8 +76,8 @@ public class ProyekRestController {
         }
     }
 
-    @GetMapping("")
-    public ResponseEntity<?> viewProyek(@RequestParam(value = "idProyek", required = false) UUID idProyek) {
+    @GetMapping("/{idProyek}")
+    public ResponseEntity<?> viewProyek(@PathVariable("idProyek") UUID idProyek) {
         var baseResponseDTO = new BaseResponseDTO<ProyekResponseDTO>();
 
         if (idProyek == null) {
@@ -102,7 +102,7 @@ public class ProyekRestController {
         return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
     }
 
-        @PutMapping("/{idProyek}/update")
+    @PutMapping("/{idProyek}/update")
     public ResponseEntity<?> updateProyek(
             @PathVariable UUID idProyek, 
             @Valid @RequestBody UpdateProyekRequestRestDTO proyekDTO, 
@@ -175,6 +175,45 @@ public class ProyekRestController {
             baseResponseDTO.setTimestamp(new Date());
             return new ResponseEntity<>(baseResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchProyek(
+            @RequestParam(value = "nama", required = false) String namaProyek) {
+        var baseResponseDTO = new BaseResponseDTO<List<ProyekResponseDTO>>();
+
+        if (namaProyek == null) {
+            baseResponseDTO.setStatus(HttpStatus.BAD_REQUEST.value());
+            baseResponseDTO.setMessage("Harus mengisi nama proyek");
+            baseResponseDTO.setTimestamp(new Date());
+            return new ResponseEntity<>(baseResponseDTO, HttpStatus.BAD_REQUEST);
+        }
+
+        List<ProyekResponseDTO> listProyek = proyekRestService.getProyekByNama(namaProyek);
+        if (listProyek.isEmpty()) {
+            baseResponseDTO.setStatus(HttpStatus.NOT_FOUND.value());
+            baseResponseDTO.setMessage("Proyek tidak ditemukan");
+            baseResponseDTO.setTimestamp(new Date());
+            return new ResponseEntity<>(baseResponseDTO, HttpStatus.NOT_FOUND);
+        }
+
+        baseResponseDTO.setStatus(HttpStatus.OK.value());
+        baseResponseDTO.setData(listProyek);
+        baseResponseDTO.setMessage("Proyek berhasil ditemukan");
+        baseResponseDTO.setTimestamp(new Date());
+        return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/viewall")
+    public ResponseEntity<BaseResponseDTO<List<ProyekResponseDTO>>> listProyek(){
+        List<ProyekResponseDTO> listProyek = proyekRestService.getAllProyek();
+
+        var baseResponseDTO = new BaseResponseDTO<List<ProyekResponseDTO>>();
+        baseResponseDTO.setStatus(HttpStatus.OK.value());
+        baseResponseDTO.setData(listProyek);
+        baseResponseDTO.setMessage("Daftar proyek berhasil ditemukan");
+        baseResponseDTO.setTimestamp(new Date());
+        return new ResponseEntity<>(baseResponseDTO, HttpStatus.OK);
     }
 
 }

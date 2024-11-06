@@ -284,3 +284,315 @@ Beberapa alternatif dari Java Faker adalah:
 * JFairy: Library yang digunakan untuk membuat data palsu secara acak dengan mudah dan nyaman.
 * Chance.js: Library yang digunakan untuk membuat data palsu secara acak untuk pengujian dan pengembangan yang dibuat untuk aplikasi berbasis JavaScript.
 
+---
+
+##  Tutorial 4
+
+###  Apa yang telah saya pelajari hari ini
+Pada lab tutorial 4 kali ini, saya telah mempelajari banyak hal terkait penggunaan Thymeleaf dan Spring Boot. Saya mempelajari bagaimana cara membuat form pada Spring Boot dengan Thymeleaf, bagaimana cara mengakses data dari database dengan JPA Repository, serta bagaimana cara menampilkan data dari database ke dalam view dengan Thymeleaf. Saya juga mempelajari cara menggunakan Thymeleaf untuk membuat form, dynamic form, menampilkan data, dan melakukan operasi CRUD pada data. Selain itu, salah satu yang paling penting dari tutorial ini adalah pemisahan antara db saat testing dan db saat production. Saya juga mempelajari prinsip modularity dan reusability dalam bentuk penggunaan fragment pada Thymeleaf.
+
+
+###  Pertanyaan
+
+1. Jelaskan apa yang terjadi ketika pengguna mengakses URL yang tidak valid? (Contoh: localhost:8080/abcde)
+
+Pada tutorial ini, kita ditugaskan untuk membuat error page untuk kode error 404 dan 500. Jika pengguna mengakses URL yang tidak valid seperti contoh localhost:8080/abcde, maka Spring Boot akan menangani request tersebut dan mengembalikan error page yang telah kita buat. Error page tersebut akan menampilkan pesan error yang sesuai dengan kode error yang dihasilkan. Pada kasus ini, jika pengguna mengakses URL yang tidak valid, maka Spring Boot akan mengembalikan error page dengan pesan error "Halaman Tidak Ditemukan".
+
+(source: https://www.baeldung.com/spring-boot-custom-error-page)
+
+2. Apa yang dimaksud dengan spring profiles dan apa kegunaannya?
+
+Spring Profiles adalah fitur yang digunakan untuk mengatur konfigurasi aplikasi berdasarkan environment yang berbeda. Dengan menggunakan Spring Profiles, kita dapat mengatur konfigurasi aplikasi berdasarkan environment seperti development, testing, dan production. Kegunaannya adalah untuk memisahkan konfigurasi aplikasi berdasarkan environment yang berbeda, sehingga memudahkan dalam pengembangan dan deployment aplikasi.
+
+Pada tutorial ini, kita menggunakan Spring Profiles untuk memisahkan konfigurasi database berdasarkan environment yang berbeda. Dengan menggunakan Spring Profiles, kita dapat mengatur konfigurasi database berdasarkan environment development dan production. Pemisahan ini dilakukan untuk memisahkan database yang digunakan saat testing dan saat production untuk mempermudah dalam pengembangan, terutama dalam pengetesan.
+
+(source: https://www.baeldung.com/spring-profiles)
+
+3. Jelaskan cara kerja “th:include” dan juga “th:replace” dan apa hubungan antar keduanya?
+
+`th:include` digunakan untuk menyisipkan fragment ke dalam template. Fragment adalah bagian dari template yang dapat digunakan kembali di berbagai template. Dengan menggunakan `th:include`, kita dapat menyisipkan fragment ke dalam template utama. `th:include` digunakan untuk menyisipkan fragment ke dalam template tanpa mengganti konten yang ada di dalam template.
+
+`th:replace` digunakan untuk mengganti konten yang ada di dalam template dengan fragment. Dengan menggunakan `th:replace`, kita dapat mengganti konten yang ada di dalam template dengan fragment. `th:replace` digunakan untuk mengganti konten yang ada di dalam template dengan fragment.
+
+Hubungan antara `th:include` dan `th:replace` adalah keduanya digunakan untuk menyisipkan fragment ke dalam template. Perbedaannya adalah `th:include` digunakan untuk menyisipkan fragment ke dalam template tanpa mengganti konten yang ada di dalam template, sedangkan `th:replace` digunakan untuk mengganti konten yang ada di dalam template dengan fragment.
+
+(source: https://stackoverflow.com/questions/37103958/difference-between-thymeleaf-include-and-replace)
+
+4. Apakah ada format lain dalam menuliskan konfigurasi pada spring boot selain dalam format yml? Jika ada, sebutkan dan jelaskan perbedaannya!
+
+Selain dalam format yml, konfigurasi pada Spring Boot juga dapat dituliskan dalam format properties. Format properties adalah format konfigurasi yang menggunakan file .properties untuk menuliskan konfigurasi aplikasi. Perbedaannya adalah format yml menggunakan file .yml untuk menuliskan konfigurasi aplikasi, sedangkan format properties menggunakan file .properties untuk menuliskan konfigurasi aplikasi.
+
+Beberapa perbedaan antara format yml dan properties adalah:
+- Format yml menggunakan file .yml untuk menuliskan konfigurasi aplikasi, sedangkan format properties menggunakan file .properties untuk menuliskan konfigurasi aplikasi.
+- Format yml menggunakan indentasi untuk menentukan struktur konfigurasi, sedangkan format properties menggunakan key-value pairs untuk menentukan konfigurasi.
+
+(source: https://www.baeldung.com/spring-boot-yaml-vs-properties)
+
+5. Mengapa kita memerlukan dua environment yang berbeda (dev & prod), dan apa implikasinya jika tidak dibuat demikian?
+
+Kita memerlukan dua environment yang berbeda (development dan production) untuk memisahkan konfigurasi aplikasi berdasarkan environment yang berbeda. Dengan menggunakan dua environment yang berbeda, kita dapat mengatur konfigurasi aplikasi berdasarkan environment development dan production. Implikasinya jika tidak dibuat demikian adalah konfigurasi aplikasi akan sulit untuk diatur dan membingungkan, karena konfigurasi aplikasi akan bercampur antara environment development dan production. Dengan menggunakan dua environment yang berbeda, kita dapat memisahkan konfigurasi aplikasi berdasarkan environment yang berbeda, sehingga memudahkan dalam pengembangan dan deployment aplikasi. Pemisahan ini akan sangat membantu dalam pengetesan menggunakan db serta mempermudah dalam pengembangan, terutama dalam pengetesan.
+
+(source: https://www.baeldung.com/spring-profiles)
+
+6. Apa saja error yang mungkin terjadi pada aplikasi yang sudah dibuat? Berikan penjelasan dan sebutkan minimal dua jenis error.
+
+Dua error yang mungkin terjadi pada aplikasi yang sudah dibuat adalah:
+- Error 404: Not Found. Error ini terjadi ketika pengguna mengakses URL yang tidak valid atau tidak ditemukan. Error ini disebabkan karena URL yang diakses tidak sesuai dengan URL yang ada di aplikasi. Misal pengguna mengakses URL yang tidak valid seperti localhost:8080/abcde.
+- Error 500: Internal Server Error. Error ini terjadi ketika terjadi kesalahan pada server saat memproses request dari pengguna. Error ini disebabkan karena terjadi kesalahan pada server saat memproses request dari pengguna. Misal terjadi kesalahan pada server saat memproses request dari pengguna.
+
+(source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+
+---
+
+##  Tutorial 5
+
+###  Apa yang telah saya pelajari hari ini
+Pada lab tutorial 5 kali ini, saya telah mempelajari banyak hal terkait penggunaan RESTful API pada Spring Boot. Saya mempelajari bagaimana cara membuat RESTful API dengan Spring Boot, bagaimana cara mengakses data dari database dengan JPA Repository, serta bagaimana cara menampilkan data dari database ke dalam RESTful API. Saya juga mempelajari cara menggunakan Postman untuk melakukan request ke RESTful API, serta bagaimana cara melakukan operasi CRUD pada data melalui RESTful API. Selain itu, saya juga mempelajari cara melakukan error handling pada RESTful API dengan menggunakan @ControllerAdvice dan @RestControllerAdvice.
+
+###  Pertanyaan
+
+1. Sebelumnya kita sudah mengetahui pada saat mengirimkan sebuah HTTP Response perlu memasukkan kode status yang berperan memberikan informasi dari response yang akan diterima. Untuk kode status sendiri dikelompokkan menjadi 5 jenis yaitu kode status dengan awalan 1xx, 2xx, 3xx, 4xx, dan 5xx. Coba jelaskan arti dari masing-masing kode status (selain 2xx) dan kapan kita harus menggunakan kode status tersebut!.
+
+Kode status HTTP dibagi menjadi 5 kategori berdasarkan rentang angka pertama dari kode status tersebut:
+
+- 1xx - Informational: Kode status ini digunakan untuk memberikan informasi bahwa request diterima dan sedang diproses. Kode status ini digunakan untuk memberikan informasi bahwa request diterima dan sedang diproses. Contoh: 100 Continue, 101 Switching Protocols.
+
+- 2xx - Success: Kode status ini digunakan untuk memberikan informasi bahwa request berhasil diproses. Kode status ini digunakan untuk memberikan informasi bahwa request berhasil diproses. Contoh: 200 OK, 201 Created.
+
+- 3xx - Redirection: Kode status ini digunakan untuk memberikan informasi bahwa request harus dialihkan ke lokasi lain. Kode status ini digunakan untuk memberikan informasi bahwa request harus dialihkan ke lokasi lain. Contoh: 301 Moved Permanently, 302 Found.
+
+- 4xx - Client Error: Kode status ini digunakan untuk memberikan informasi bahwa terjadi kesalahan pada sisi klien. Kode status ini digunakan untuk memberikan informasi bahwa terjadi kesalahan pada sisi klien. Contoh: 400 Bad Request, 401 Unauthorized.
+
+- 5xx - Server Error: Kode status ini digunakan untuk memberikan informasi bahwa terjadi kesalahan pada sisi server. Kode status ini digunakan untuk memberikan informasi bahwa terjadi kesalahan pada sisi server. Contoh: 500 Internal Server Error, 501 Not Implemented.
+
+(Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+
+2. Jelaskan fungsi dari anotasi @JsonInclude, @JsonFormat, dan @JsonIgnore!.
+
+Berikut adalah penjelasan dari masing-masing anotasi:
+
+- @JsonInclude: Annotation ini digunakan untuk mengatur bagaimana Jackson mengabaikan properti yang memiliki nilai null saat serialisasi objek menjadi JSON. Kegunaannya adalah untuk mengatur bagaimana Jackson mengabaikan properti yang memiliki
+
+- @JsonFormat: Annotation ini digunakan untuk mengatur format dari properti saat serialisasi objek menjadi JSON. Kegunaannya adalah untuk mengatur format dari properti saat serialisasi objek menjadi JSON.
+
+- @JsonIgnore: Annotation ini digunakan untuk mengabaikan properti saat serialisasi objek menjadi JSON. Kegunaannya adalah untuk mengabaikan properti saat serialisasi objek menjadi JSON.
+
+(Source: https://www.baeldung.com/jackson-annotations)
+
+3. Berikan dua contoh tipe requestBody dan dua contoh tipe responseBody yang dapat digunakan pada RESTful API selain tipe application/json! Serta jelaskan juga kapan sebaiknya menggunakan tipe tersebut!.
+
+Berikut adalah dua contoh tipe requestBody dan dua contoh tipe responseBody yang dapat digunakan pada RESTful API selain tipe application/json:
+
+- Tipe RequestBody:
+  - application/xml: Tipe ini digunakan untuk mengirim data dalam format XML. Sebaiknya digunakan jika aplikasi membutuhkan data dalam format XML.
+  - application/x-www-form-urlencoded: Tipe ini digunakan untuk mengirim data dalam format form-urlencoded. Sebaiknya digunakan jika aplikasi membutuhkan data dalam format form-urlencoded.
+
+- Tipe ResponseBody:
+    - application/xml: Tipe ini digunakan untuk mengirim data dalam format XML. Sebaiknya digunakan jika aplikasi membutuhkan data dalam format XML.
+    - application/x-www-form-urlencoded: Tipe ini digunakan untuk mengirim data dalam format form-urlencoded. Sebaiknya digunakan jika aplikasi membutuhkan data dalam format form-urlencoded.
+
+(Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
+
+4. Jelaskan fungsi dari anotasi @ControllerAdvice dan @RestControllerAdvice!.
+
+Berikut adalah penjelasan dari masing-masing anotasi:
+
+- @ControllerAdvice: Annotation ini digunakan untuk memberikan global exception handling pada aplikasi Spring. Kegunaannya adalah untuk memberikan global exception handling pada aplikasi Spring.
+
+- @RestControllerAdvice: Annotation ini digunakan untuk memberikan global exception handling pada aplikasi Spring yang mengembalikan response dalam format JSON. Kegunaannya adalah untuk memberikan global exception handling pada aplikasi Spring yang mengembalikan response dalam format JSON.
+
+(Source: https://www.baeldung.com/exception-handling-for-rest-with-spring)
+
+5. Jelaskan fungsi dari object class webClient! Apakah ada alternatif lain yang dapat kita gunakan selain object class webClient?
+
+WebClient adalah kelas yang digunakan untuk membuat HTTP requests pada aplikasi Spring. Kegunaannya adalah untuk membuat HTTP requests pada aplikasi Spring. WebClient digunakan untuk membuat HTTP requests ke server dan mengambil response dari server. Alternatif lain yang dapat digunakan selain WebClient adalah RestTemplate. RestTemplate adalah kelas yang digunakan untuk membuat HTTP requests pada aplikasi Spring. Kegunaannya adalah untuk membuat HTTP requests pada aplikasi Spring. RestTemplate digunakan untuk membuat HTTP requests ke server dan mengambil response dari server.
+
+(Source: https://www.baeldung.com/spring-webclient-resttemplate)
+
+---
+
+##  Tutorial 6
+
+###  Apa yang telah saya pelajari hari ini
+
+
+###  Pertanyaan
+
+1. Perhatikan apa yang terjadi pada file index.html pada branch feat/tutorial-6-advancedgit-1. Apa yang terjadi setelah git cherry-pick dilakukan? Apakah kita bisa melakukan cherrypick tanpa harus melakukan commit?
+
+- setelah git cherry-pick dilakukan, file index.html pada branch feat/tutorial-6-advancedgit-1 akan berubah sesuai dengan perubahan yang ada pada commit yang di-cherry-pick yaitu penambahan kode head HTML dari branch tut6-for-cherrypick. Perubahan tersebut akan diaplikasikan pada branch feat/tutorial-6-advancedgit-1.
+
+- Kita tidak bisa melakukan cherrypick tanpa harus melakukan commit. Cherrypick adalah proses untuk mengambil commit tertentu dari branch lain dan menerapkannya pada branch yang sedang aktif. Untuk menerapkan commit tersebut, kita harus melakukan commit terlebih dahulu setelah cherrypick dilakukan.
+
+source: https://www.git-scm.com/docs/git-cherry-pick
+
+2. Apa yang menjadi penyebab dari CONFLICT tersebut?
+
+- Pada branch feat/tutorial-6-advancedgit-1 dan tut6-for-merge sama-sama melakukan perubahan pada file index.html yakni pada bagian body. Karena kedua branch tersebut melakukan perubahan pada bagian yang sama, maka terjadi conflict saat dilakukan merge.
+
+- Git tidak bisa menentukan perubahan mana yang harus diterapkan karena kedua branch tersebut melakukan perubahan pada bagian yang sama. Sehingga, Git menandai perubahan tersebut sebagai conflict.
+
+source: https://www.git-scm.com/docs/git-merge
+
+3. Jelaskan perbedaan dari "rebase –continue", "rebase –skip", dan "rebase –abort"!
+
+- rebase --continue: Perintah ini digunakan untuk melanjutkan proses rebase setelah menyelesaikan konflik pada commit yang di-rebase. Perintah ini digunakan setelah menyelesaikan konflik pada commit yang di-rebase.
+
+- rebase --skip: Perintah ini digunakan untuk melewati commit yang sedang di-rebase dan melanjutkan proses rebase ke commit berikutnya. Perintah ini digunakan untuk melewati commit yang sedang di-rebase dan melanjutkan proses rebase ke commit berikutnya.
+
+- rebase --abort: Perintah ini digunakan untuk membatalkan proses rebase dan mengembalikan branch ke kondisi sebelum rebase. Perintah ini digunakan untuk membatalkan proses rebase dan mengembalikan branch ke kondisi sebelum rebase.
+
+source: https://www.git-scm.com/docs/git-rebase
+
+4. Apa perbedaan Git Merge dengan Git Rebase? Buatlah/carilah ilustrasi yang dapat menggambarkan perbedaanya! Anda bisa menggunakan commit history (git log –oneline) Anda setelah melakukan rebase.
+
+Git Merge:
+- Membuuat commit baru yang menggabungkan dua branch yang bernama merge commit.
+- Mempertaahankan history commit dari kedua branch yang di-merge.
+
+Git Rebase:
+- Memindahkan base commit dari branch yang di-rebase ke base commit dari branch tujuan.
+- Mengubah history commit dari branch yang di-rebase menjadi linear.
+- Menghasilkan grafik commit yang lebih bersih dan linear.
+
+source: https://www.git-scm.com/docs/git-merge
+
+source: https://www.git-scm.com/docs/git-rebase
+
+5. Mengapa hal pada langkah no 4 bisa terjadi? Mengapa git stash menjadi solusinya?
+
+- Langkah 4 gagal karena Git mencegah perpindahan branch ketika ada uncommited changes untuk mencegah kehilangan perubahan yang belum disimpan.
+
+Git stash menjadi solusi karena:
+- Stash digunakan untuk menyimpan perubahan yang belum di-commit kedalam temporary storage.
+- Perubahan yang di-stash dapat diambil kembali nanti menggunakan stash pop
+- Memungkinkan perpindahan branch dengan aman tanpa harus melakukan commit prematur.
+
+source: https://www.git-scm.com/docs/git-stash
+
+6. Sebutkan dan jelaskan tiga tipe dari Git Reset!
+
+- Git Reset --soft: Mengubah HEAD ke commit yang ditentukan tanpa mengubah staging area dan working directory. Perubahan yang ada di commit tersebut akan kembali ke staging area.
+
+- Git Reset --mixed: Mengubah HEAD ke commit yang ditentukan dan mengubah staging area menjadi seperti commit tersebut. Perubahan yang ada di commit tersebut akan kembali ke staging area. Git reset ini merupakan default dari git reset.
+
+- Git Reset --hard: Mengubah HEAD ke commit yang ditentukan dan menghapus perubahan yang ada di staging area dan working directory. Perubahan yang ada di commit tersebut akan hilang.
+
+source: https://www.git-scm.com/docs/git-reset
+
+7. Apa itu git revert? Apa perbedaannya dengan git reset?
+
+Git Revert: Git revert digunakan untuk membuat commit baru yang membatalkan perubahan dari commit sebelumnya. Git revert membuat commit baru yang membatalkan perubahan dari commit sebelumnya. Berikut adalah ciri ciri Git revert:
+- Membuat commit baru yang membatalkan perubahan dari commit sebelumnya.
+- Tidak mengubah history commit yang sudah ada.
+- Lebih aman untuk digunakan pada branch yang sudah di-push.
+- Dapat dibatalkan karena membuat commit baru.
+
+Git Reset: Git reset digunakan untuk mengubah HEAD ke commit yang ditentukan dan mengubah staging area dan working directory sesuai dengan commit tersebut. Git reset mengubah HEAD ke commit yang ditentukan dan mengubah staging area dan working directory sesuai dengan commit tersebut. Berikut adalah ciri ciri Git reset:
+- Mengembalikan HEAD ke commit yang ditentukan dengan menghapus commit setelahnya.
+- Mengubah history commit yang sudah ada.
+- Lebih sulit dibatalkan karena menghapus commit yang sudah ada.
+
+source: https://www.git-scm.com/docs/git-revert
+
+source: https://www.git-scm.com/docs/git-reset
+
+8. Buatlah grafik yang menggambarkan alur commit pada bagian Git Flow and Branching ini serta jelaskan! Grafik dapat berupa tulis tangan maupun menggunakan software.
+
+![Git Flow and Branching](https://i.imgur.com/jZMOEI4.png)
+
+- Dimulai dari branch main dengan commit pertama.
+- Dibuat branch development dan ditambahkan base.html
+- Dari development, dibuat branch feature-a dan dilakukan edit pada base.html
+- Feature-a di merge ke development
+- Dibuat branch feature-b dari development dan dilakukan edit pada base.html
+- Terjadi conflict saat rebase feature-b ke development
+- Conflict diresolve dan feature-b di merge ke development
+
+source: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-
+
+9. Apa kegunaan dari langkah di atas? (Setup HTTP Header Manager)
+
+- HTTP Header Manager digunakan untuk menambahkan header. Pada tutorial ini, kita menambahkan content-type header dengan value application/json pada HTTP Header Manager. Kegunaannya adalah untuk menentukan tipe konten yang dikirimkan dalam request, dalam hal ini adalah application/json.
+
+10. Apa itu JSON Extractor? Sebutkan semua kegunaannya di Test Plan ini! HINT: Lanjut ke langkah-langkah berikutnya untuk mengetahui jawabannya.
+
+- JSON Extractor adalah komponen yang digunakan untuk mengekstrak data dari response JSON dan menyimpannya ke dalam variabel. Kegunaannya adalah untuk mengekstrak data dari response JSON dan menyimpannya ke dalam variabel. Pada tutorial ini, kita menggunakan JSON Extractor untuk mengekstrak id dari response JSON pertama dan menyimpannya ke dalam variabel id.
+
+11. Apa itu Assertions dalam JMeter? Sebutkan contoh 3 Assertions dan kegunaannya!
+
+Terdapat 3 jenis Assertions dalam JMeter:
+
+- Response Assertion: Assertion ini digunakan untuk memeriksa response dari server apakah sesuai dengan kondisi yang diinginkan. Kegunaannya adalah untuk memeriksa response dari server apakah sesuai dengan kondisi yang diinginkan.
+
+- JSON Assertion: Assertion ini digunakan untuk memeriksa response JSON dari server apakah sesuai dengan kondisi yang diinginkan. Kegunaannya adalah untuk memeriksa response JSON dari server apakah sesuai dengan kondisi yang diinginkan.
+
+- Duration Assertion: Assertion ini digunakan untuk memeriksa durasi response dari server apakah sesuai dengan kondisi yang diinginkan. Kegunaannya adalah untuk memeriksa durasi response dari server apakah sesuai dengan kondisi yang diinginkan.
+
+12. Apa itu Number of Threads dan Ramp-up Period? Apa hubungan antar keduanya?
+
+- Number of Threads: Number of Threads adalah jumlah pengguna virtual yang akan melakukan request ke server. Kegunaannya adalah untuk menentukan jumlah pengguna virtual yang akan melakukan request ke server.
+
+- Ramp-up Period: Ramp-up Period adalah waktu yang dibutuhkan untuk semua pengguna virtual untuk memulai request ke server. Kegunaannya adalah untuk menentukan waktu yang dibutuhkan untuk semua pengguna virtual untuk memulai request ke server.
+
+- Hubungan antara Number of Threads dan Ramp-up Period adalah Number of Threads menentukan jumlah pengguna virtual yang akan melakukan request ke server, sedangkan Ramp-up Period menentukan waktu yang dibutuhkan untuk semua pengguna virtual untuk memulai request ke server. Misal dengan 1000 threads dan 100 ramp-up period, JMeter akan membuat 10 thread baru setiap detik setiap 1 detik.
+
+13. Gunakan angka 1000 untuk Number of Threads dan 100 untuk Ramp-up period. Jalankan Test Plan dengan konfigurasi tersebut. Kemudian, perhatikan Summary Report, View Result Tree, Graph Result, dan Assertion Result. Buatlah penjelasan minimal 2 paragraf untuk menjelaskan temuan menarik kalian terhadap hasil-hasil tersebut. Sertakan screenshot dari keempat result tersebut. Sertakan juga info mengenai prosesor, RAM, dan penggunaan hardisk HDD atau SSD dari perangkat Anda. (Jika perangkat Anda tidak kuat dengan angka konfigurasi tersebut, silakan turunkan angkanya).
+
+![Summary Report](https://i.imgur.com/H19kFxb.jpeg)
+
+- Dari Summary Report terlihat bahwa jumlah request yang berhasil adalah 1000, sedangkan jumlah request yang gagal adalah 0. Hal ini menunjukkan bahwa semua request berhasil dilakukan tanpa ada request yang gagal. Durasi rata-rata request adalah 26 detik, dengan rata-rata paling tinggi berada saat request search proyek by nama. Selain itu, waktu request terlama ada pada 99 detik pada search proyek juga, dan paling sedikit ada 0 detik yakni pada request random (API yang simple)
+
+- Kita juga dapat lihat jika persentase error tertinggi ada pada request search proyek by nama (34%) dan juga random (49%). Pada kasus search by nama, somehow banyak yang mengalami error 500 saat ditengah-tengah proses, tetapi saat menuju akhir, reponse 200 semua. Sedangkan pada random error terjadi karena response di random, dari 1000 request, kita mendapat 490 response yang error.
+
+![View Result Tree](https://i.imgur.com/KqVjYZl.jpeg)
+
+- Dari View Result Tree, kita dapat melihat detail dari setiap request yang dilakukan. Kita dapat melihat response code, response message, dan response data dari setiap request. Dari View Result Tree, kita dapat melihat bahwa setiap request yang dilakukan memberikan response code 200 yang artinya request berhasil dilakukan kecuali pada request random yang tidak semuanya berhasil karena response di-randomize.
+
+![Graph Result](https://i.imgur.com/94fF4m1.jpeg)
+
+- Dari Graph Result, kita dapat melihat bahwa terdapat trend meningkat pada response time individual dan garis rata-rata menunjukan bahwa aplikasi menghadapi degradasi performa seiring bertambahnya jumlah request.
+
+- Standar deviasi yang besar juga mengindikasikan adanya variasi yang besar pada response time individual. Hal ini menunjukkan bahwa server kadang-kadang dapat menghandle request secara cepat, namun kadang-kadang juga membutuhkan waktu yang lama untuk merespon request. Hal ini karena terdapat request yang simple seperti random atau get by id, dan juga request yang kompleks seperti search by nama.
+
+- Fluktuasi Throughput juga menunjukkan adanya ketidakstabilan yang mungkin disebabkan oleh ketidakmampuan server untuk mengikuti load yang terus meningkat
+
+![Assertion Result](https://i.imgur.com/Qhwhuaa.jpeg)
+
+- Dari Assertion Result, kita dapat melihat bahwa semua assertion yang dilakukan berhasil. Hal ini menunjukkan bahwa response dari server sesuai dengan kondisi yang diinginkan. Assertion Result menunjukkan bahwa semua response dari server sesuai dengan kondisi yang diinginkan.
+
+![Hardware When Running](https://i.imgur.com/qDzmdMh.jpeg)
+![Hardware Usage When Running](https://i.imgur.com/FuRGUBE.jpeg)
+
+- Spesifikasi perangkat yang digunakan:
+  - Processor: AMD Ryzen 5 5600X (12 Threads)
+  - RAM: 13.9 GB
+  - Hardisk: NVME Gen.3 SSD
+
+- Saat running pada puncaknya, kita dapat melihat CPU dan RAM usage yang cukup tinggi, bahkan hampir maksimal. Hal ini menunjukkan bahwa JMeter membutuhkan sumber daya yang cukup besar untuk menjalankan 1000 threads dengan ramp-up period 100. Penggunaan SSD tidak terlalu tinggi karena JMeter lebih banyak menggunakan CPU dan RAM untuk menjalankan test plan.
+
+![Hardware after Finished](https://i.imgur.com/gUAkdss.jpeg)
+
+- Saat selesai, penggunaan CPU dan RAM kembali normal menjadi sangat rendah dan resource usage yang digunakan oleh JMeter kembali ke kondisi normal.
+
+14. Sembari menjalankan Test Plan, perhatikan pergerakan grafik pada JConsole. Buatlah penjelasan minimal 2 paragraf untuk menjelaskan temuan menarik kalian terhadap hasil-hasil tersebut. Sertakan screenshot dari grafik-grafik tersebut
+
+![JConsole Before Test](https://i.imgur.com/AdJMXwD.jpeg)
+
+- Pada JConsole sebelum test, kita dapat melihat bahwa penggunaan CPU dan RAM masih normal dan terbilang rendah. CPU Usage hanya 0.1% dan thread yang digunakan hanya 50.
+
+![JConsole At Peak](https://i.imgur.com/WFOsPzh.jpeg)
+
+- Pada JConsole saat test berjalan pada puncaknya, kita dapat melihat bahwa penggunaan CPU dan RAM meningkat drastis. CPU Usage mencapai 7.3% dan RAM yang digunakan meningkat 100% menjadi 300MB. Thread juga meningkat menjadi 237 thread yang digunakan.
+
+![JConsole After Test](https://i.imgur.com/xxR8REI.jpeg)
+
+- Pada JConsole setelah test selesai, penggunaan CPU dan RAM kembali normal menjadi sangat rendah dan resource usage yang digunakan oleh JMeter kembali ke kondisi normal. CPU Usage kembali ke 0.1% dan RAM yang digunakan kembali ke 100MB. Thread juga kembali ke 50 thread yang digunakan.
+
+15. Apa itu Load Testing? Buatlah kesimpulan dari pengerjaan tutorial JMeter & JConsole ini.
+
+- Load Testing adalah proses pengujian performa aplikasi dengan memberikan beban yang tinggi untuk melihat bagaimana aplikasi merespon terhadap beban tersebut. Load Testing digunakan untuk mengukur performa aplikasi saat menerima beban yang tinggi dan melihat bagaimana aplikasi merespon terhadap beban tersebut.
+
+- Dari pengerjaan tutorial JMeter & JConsole ini, kita dapat melihat bahwa penggunaan CPU dan RAM meningkat drastis saat test berjalan pada puncaknya. Hal ini menunjukkan bahwa JMeter membutuhkan sumber daya yang cukup besar untuk menjalankan 1000 threads dengan ramp-up period 100. Penggunaan SSD tidak terlalu tinggi karena JMeter lebih banyak menggunakan CPU dan RAM untuk menjalankan test plan. Pada JConsole, kita dapat melihat bahwa penggunaan CPU dan RAM meningkat drastis saat test berjalan pada puncaknya. CPU Usage mencapai 7.3% dan RAM yang digunakan meningkat 100% menjadi 300MB. Thread juga meningkat menjadi 237 thread yang
+
+

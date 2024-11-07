@@ -595,4 +595,51 @@ Terdapat 3 jenis Assertions dalam JMeter:
 
 - Dari pengerjaan tutorial JMeter & JConsole ini, kita dapat melihat bahwa penggunaan CPU dan RAM meningkat drastis saat test berjalan pada puncaknya. Hal ini menunjukkan bahwa JMeter membutuhkan sumber daya yang cukup besar untuk menjalankan 1000 threads dengan ramp-up period 100. Penggunaan SSD tidak terlalu tinggi karena JMeter lebih banyak menggunakan CPU dan RAM untuk menjalankan test plan. Pada JConsole, kita dapat melihat bahwa penggunaan CPU dan RAM meningkat drastis saat test berjalan pada puncaknya. CPU Usage mencapai 7.3% dan RAM yang digunakan meningkat 100% menjadi 300MB. Thread juga meningkat menjadi 237 thread yang
 
+---
 
+##  Tutorial 7
+
+###  Apa yang telah saya pelajari hari ini
+Pada Tutorial 7 ini, saya belajar banyak hal, pertama saya belajar cara mengkonfigurasi sebuah project VueJS dengan Vite dari awal. Saya juga mempelajari cara mengkonfigurasi CORS untuk penggunaan REST API yang telah saya bikin sebelumnya di Springboot dan juga cara mengakses REST API tersebut pada frontend VueJS. Selain itu, saya juga belajar cara menggunakan Vuex untuk state management pada VueJS dan juga cara menggunakan Vue Router untuk routing pada VueJS.
+
+###  Pertanyaan
+
+1. Jelaskan apa saja maksud dari pilihan konfigurasi pada awal inisialiasi proyek vue!
+
+- Project name: Nama proyek yang akan dibuat. Nama proyek yang kita buat adalah manpromanpro-frontend.
+- Add TypeScript: Menambahkan TypeScript ke proyek. Untuk opsi ini, kita memlih ya kae kita akan menggunakan TypeScript dalam proyek ini.
+- Add JSX Support: Menambahkan JSX Support ke proyek. Untuk opsi ini, kita memilih ya.
+- Add Vue Router for single page application development: Menambahkan Vue Router untuk pengembangan aplikasi single page. Untuk opsi ini, kita memilih ya karena kita membutuhkannya.
+- Add End-to-end testing with Solution: Menambahkan End-to-end testing solution. Untuk opsi ini, kita memilih no.
+- Add ESLint: Menambahkan ESLint ke proyek. Untuk opsi ini, kita memilih ya karena ESLint digunakan untuk memeriksa kode JavaScript dan memastikan bahwa kode tersebut mematuhi standar tertentu.
+- Add prettier for code formatting: Menambahkan Prettier untuk code formatting. Untuk opsi ini, kita memilih ya karena Prettier digunakan untuk memformat kode JavaScript agar lebih rapi dan mudah dibaca.
+- Add Pinia for state management: Menambahkan Pinia untuk state management. Untuk opsi ini, kita memilih ya karena Pinia digunakan untuk mengelola state pada aplikasi Vue.
+- Add Vue DevTools 7 extension for debugging: Menambahkan Vue DevTools 7 extension untuk debugging. Untuk opsi ini, kita memilih no karena kita tidak membutuhkannya.
+
+2. Apa itu vite? apakah kita dapat menggunakan vue tanpa vite? Jelaskan!
+
+- Vite adalah build tool yang digunakan untuk mengembangkan aplikasi web modern. Vite digunakan untuk mempercepat proses pengembangan aplikasi web dengan menyediakan fitur-fitur seperti hot module replacement, fast refresh, dan bundling yang cepat. Vite menggunakan bundler yang berbasis ES Module untuk mempercepat proses bundling dan memungkinkan pengembangan aplikasi web yang lebih cepat. Tanpa Vite, kita masih dapat menggunakan Vue untuk mengembangkan aplikasi web. Namun, dengan menggunakan Vite, proses pengembangan aplikasi web menjadi lebih cepat dan efisien.
+
+source: https://vitejs.dev/
+
+3. Jelaskan masing-masing fungsi dari assets, components, router, stores, dan view pada proyek aplikasi Vue JS!
+
+- assets: Folder ini digunakan untuk menyimpan aset seperti gambar, video, dan file lainnya yang digunakan dalam proyek Vue. Aset ini dapat digunakan dalam komponen Vue untuk menampilkan gambar, video, dan file lainnya.
+- components: Folder ini digunakan untuk menyimpan komponen Vue yang digunakan dalam proyek Vue. Komponen Vue adalah bagian dari aplikasi Vue yang dapat digunakan kembali dan dapat diintegrasikan ke dalam aplikasi Vue.
+- router: Folder ini digunakan untuk menyimpan konfigurasi router Vue. Router Vue digunakan untuk mengatur navigasi antar halaman dalam aplikasi Vue.
+- stores: Folder ini digunakan untuk menyimpan konfigurasi store Vue. Store Vue digunakan untuk mengelola state dalam aplikasi Vue.
+- view: Folder ini digunakan untuk menyimpan halaman Vue yang digunakan dalam proyek Vue. Halaman Vue adalah bagian dari aplikasi Vue yang menampilkan konten ke pengguna.
+
+source: https://v3.vuejs.org/guide/introduction.html
+
+4. Kenapa agar Vue JS dapat mengakses REST API yang ada pada Spring Boot, kalian harus menambahkan konfigurasi CORS terlebih dahulu?
+
+- CORS (Cross-Origin Resource Sharing) adalah mekanisme yang digunakan oleh browser untuk memungkinkan request dari domain yang berbeda. Jika aplikasi Vue JS dan REST API yang ada pada Spring Boot berjalan pada domain yang berbeda, maka browser akan mencegah request dari aplikasi Vue JS ke REST API karena keamanan. Untuk mengatasi masalah ini, kita harus menambahkan konfigurasi CORS pada REST API yang ada pada Spring Boot agar aplikasi Vue JS dapat mengakses REST API tersebut.
+
+source: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+
+5. Jelaskan apa kegunaan interface pada typescript dan apa perbedaannya dengan types serta kapan harus menggunakan yang mana!
+
+- Interface pada TypeScript digunakan untuk mendefinisikan struktur data yang digunakan dalam aplikasi TypeScript. Interface digunakan untuk mendefinisikan tipe data yang digunakan dalam aplikasi TypeScript. Perbedaan antara interface dan types adalah interface digunakan untuk mendefinisikan struktur data, sedangkan types digunakan untuk mendefinisikan tipe data. Kita harus menggunakan interface jika kita ingin mendefinisikan struktur data yang digunakan dalam aplikasi TypeScript, sedangkan kita harus menggunakan types jika kita ingin mendefinisikan tipe data yang digunakan dalam aplikasi TypeScript.
+
+source: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html

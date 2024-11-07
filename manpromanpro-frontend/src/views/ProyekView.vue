@@ -3,7 +3,7 @@ import { onMounted } from 'vue'
 import { DataTable } from 'simple-datatables'
 import VButton from '@/components/VButton.vue'
 import { useProjectStore } from '@/stores/project'
-import VDeleteButton from '@/components/VDeleteButton.vue'
+import VDeleteButton from '@/components/VDeleteButton.vue';
 
 const projectStore = useProjectStore()
 
@@ -62,7 +62,7 @@ onMounted(async () => {
                             <RouterLink :to="`/proyek/${project.id}/edit`" class="w-full">
                                 <VButton class="edit-button">Edit</VButton>
                             </RouterLink>
-                            <VDeleteButton :projectId="project.id" />
+                            <VDeleteButton :projectId="project.id"></VDeleteButton>
                         </td>
                     </tr>
                     </tbody>

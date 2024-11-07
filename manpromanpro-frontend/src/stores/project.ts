@@ -123,12 +123,10 @@ export const useProjectStore = defineStore('project', {
                 )
                 
                 if (response.ok) {
-                    this.projects = this.projects.filter(
-                        (project) => project.id !== id
-                    )
+                    this.projects = this.projects.filter((project) => project.id !== id)
                 }
 
-                useToast().success('Sukses menghapus proyek')
+                useToast().success("Sukses menghapus proyek")
                 window.location.reload()
             } catch (err) {
                 this.error = `Gagal menghapus proyek ${(err as Error).message}`

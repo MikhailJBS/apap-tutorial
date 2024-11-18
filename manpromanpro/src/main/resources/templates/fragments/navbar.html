@@ -39,7 +39,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            th:href="@{/pekerja/rest/viewall}"
+                            th:href="@{/pekerja/viewall}"
                             th:classappend="${#strings.equals(#vars.currentPage, 'pekerja-viewall')} ? 'active disabled' : 
                                             (${#vars.currentPage == null || #strings.startsWith(#vars.currentPage, 'pekerja')} ? 'active' : '')">Pekerja</a>
                     </li>
@@ -55,6 +55,9 @@
                             th:classappend="${#strings.equals(#vars.currentPage, 'proyek-viewall')} ? 'active disabled' :
                                             (${#vars.currentPage == null || #strings.startsWith(#vars.currentPage, 'proyek')} ? 'active' : '')">Proyek</a>
                     </li>
+                </ul>
+                <ul class="navbar-nav pull-right">
+                    <a class="nav-item nav-link" th:href="@{/logout}">Logout</a>
                 </ul>
             </div>
         </div>

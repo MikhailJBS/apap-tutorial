@@ -643,3 +643,58 @@ source: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 - Interface pada TypeScript digunakan untuk mendefinisikan struktur data yang digunakan dalam aplikasi TypeScript. Interface digunakan untuk mendefinisikan tipe data yang digunakan dalam aplikasi TypeScript. Perbedaan antara interface dan types adalah interface digunakan untuk mendefinisikan struktur data, sedangkan types digunakan untuk mendefinisikan tipe data. Kita harus menggunakan interface jika kita ingin mendefinisikan struktur data yang digunakan dalam aplikasi TypeScript, sedangkan kita harus menggunakan types jika kita ingin mendefinisikan tipe data yang digunakan dalam aplikasi TypeScript.
 
 source: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+
+---
+
+##  Tutorial 8
+
+###  Apa yang telah saya pelajari hari ini
+Pada Tutorial 8 ini saya telah mempelajari banyak hal terkait keamanan aplikasi yang kita buat dari segi web frontend dan juga API. Saya mempelajari cara mengimplementasikan autentikasi dan otorisasi pada aplikasi web frontend dan API yang kita buat. Saya juga mempelajari cara menggunakan JWT (JSON Web Token) untuk autentikasi dan otorisasi pada aplikasi web frontend dan API. Selain itu, saya juga mempelajari cara menggunakan Spring Security untuk mengimplementasikan autentikasi dan otorisasi pada aplikasi Spring Boot. Pada tutorial ini juga saya mempelajari cara melakukan autentikasi dan otorisasi untuk API menggunakan JWT pada saat mengakses API dari aplikasi lain, pada kasus ini, melalui aplikasi mobile flutter.
+
+###  Pertanyaan
+
+1. Apa perbedaan antara encryption dan hashing? Mana yang lebih baik untuk penyimpanan password?
+
+- Encryption adalah proses mengubah data menjadi bentuk yang tidak dapat dibaca tanpa kunci enkripsi. Encryption digunakan untuk melindungi data saat data tersebut sedang berpindah dari satu tempat ke tempat lain. Encryption dilakukan dengan menggunakan algoritma enkripsi dan kunci enkripsi.
+
+- Hashing adalah proses mengubah data menjadi nilai hash yang unik. Hashing digunakan untuk memverifikasi integritas data dan memastikan bahwa data tidak berubah. Hashing dilakukan dengan menggunakan algoritma hash seperti SHA-256 atau MD5.
+
+- Untuk penyimpanan password, lebih baik menggunakan hashing daripada encryption. Hal ini karena hashing tidak dapat di-decrypt, sehingga password yang di-hash tidak dapat di-decrypt kembali menjadi password asli. Sebaliknya, encryption dapat di-decrypt, sehingga password yang di-encrypt dapat di-decrypt kembali menjadi password asli.
+
+Source: https://www.cloudflare.com/learning/security/glossary/what-is-encryption/
+
+Source: https://www.cloudflare.com/learning/security/glossary/what-is-hashing/
+
+2. Apa yang membuat spring meredirect pengguna ke /login ketika pertama kali membuka localhost:8080?
+
+- Spring melakukan redirect pengguna ke /login ketika pertama kali membuka localhost:8080 karena konfigurasi keamanan yang ada pada aplikasi Spring. Konfigurasi keamanan tersebut mengharuskan pengguna untuk melakukan login sebelum dapat mengakses halaman lain dalam aplikasi Spring. Jika pengguna belum melakukan login, maka pengguna akan di-redirect ke halaman login untuk
+
+- Pada konfigurasi SecurityFilterChain, konfigurasi authorizeHttpRequest menentukan aturan otorisasi untuk setiap request yang masuk. Jika request tidak memenuhi aturan otorisasi yang ada, maka pengguna akan di-redirect ke halaman login. Sedangkan konfigurasi formLogin menentukan halaman login yang digunakan untuk login.
+
+Source: https://www.baeldung.com/spring-security-login
+
+3. Kapan method loadUserByUsername ini dipanggil?
+
+- Method loadUserByUsername dipanggil saat pengguna melakukan login ke aplikasi Spring. Method loadUserByUsername digunakan untuk memuat informasi pengguna berdasarkan username yang dimasukkan oleh pengguna saat login. Method loadUserByUsername dipanggil saat pengguna melakukan login ke aplikasi Spring untuk memeriksa apakah pengguna tersebut sudah terdaftar dalam database atau belum.
+
+Source: https://www.baeldung.com/spring-security-authentication-with-a-database
+
+4. Apa makna dari anotasi order serta mengapa jwtFilterChain ada di order 1 dan webFilterChain ada di order 2?
+
+- Anotasi @Order digunakan untuk menentukan urutan eksekusi dari komponen Spring. Method dengan order yang lebih kecil akan dieksekusi terlebih dahulu daripada method dengan order yang lebih besar. Pada aplikasi Spring, jwtFilterChain diletakkan di order 1 dan webFilterChain diletakkan di order 2 karena jwtFilterChain harus dieksekusi terlebih dahulu sebelum webFilterChain.
+
+- JwtFilterChain diletakkan di order 1 karena jwtFilterChain digunakan untuk melakukan autentikasi pengguna berdasarkan token JWT yang dimasukkan oleh pengguna. JwtFilterChain berguna untuk memeriksa apakah token JWT yang dimasukkan oleh pengguna valid atau tidak untuk melakukan validasi otorisasi pengguna saat mengakses API.
+
+- WebFilterChain diletakkan di order 2 karena WebFilterChain digunakan untuk melakukan validasi otorisasi pengguna saat mengakses halaman web. WebFilterChain berguna untuk memeriksa apakah pengguna sudah login atau belum saat mengakses halaman web serta melakukan validasi otorisasi pengguna saat mengakses halaman web.
+
+Source: https://www.baeldung.com/spring-order
+
+5. Apa fungsi digunakannya method exceptionHandling pada jwtFilterChain? Jelaskan untuk masing-masing exception yang ditangani, yaitu autheticationEntryPoint dan accessDeniedHandler
+
+- Method exceptionHandling pada jwtFilterChain digunakan untuk menangani exception yang terjadi saat autentikasi pengguna berdasarkan token JWT. Method exceptionHandling digunakan untuk menangani exception yang terjadi saat autentikasi pengguna berdasarkan token JWT.
+
+- AuthenticationEntryPoint digunakan untuk menangani exception yang terjadi saat autentikasi pengguna gagal. Exception ini terjadi saat pengguna tidak dapat diotentikasi berdasarkan token JWT yang dimasukkan oleh pengguna.
+
+- AccessDeniedHandler digunakan untuk menangani exception yang terjadi saat pengguna tidak memiliki otorisasi untuk mengakses halaman web. Exception ini terjadi saat pengguna tidak memiliki otorisasi untuk mengakses halaman web.
+
+Source: https://www.baeldung.com/spring-security-authentication-failure-handler

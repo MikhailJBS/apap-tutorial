@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:manpromanpro_mobile/model/proyek.dart';
 import 'package:manpromanpro_mobile/utils/reusable_widget.dart';
 import 'package:manpromanpro_mobile/utils/jwt_utils.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:manpromanpro_mobile/screens/login.dart';
 
 class ProyekScreen extends StatefulWidget {
   const ProyekScreen({super.key});
@@ -13,10 +15,12 @@ class ProyekScreen extends StatefulWidget {
 }
 
 class _ProyekScreenState extends State<ProyekScreen> {
+  final _secureStorage = FlutterSecureStorage();
+
   Future<List<Proyek>?> fetchProyek() async {
     try {
       // Get JWT token from secure storage
-      final jwtToken = await JwtUtils.getUsernameFromJwt();
+      final jwtToken = await _secureStorage.read(key: 'jwt_token');
       if (jwtToken == null) {
         throw Exception("JWT Token not found");
       }
@@ -29,7 +33,7 @@ class _ProyekScreenState extends State<ProyekScreen> {
           'Content-Type': 'application/json',
         },
       );
-      
+
       // Check if the response is successful
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
@@ -51,6 +55,20 @@ class _ProyekScreenState extends State<ProyekScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ManproManpro'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await _secureStorage.delete(key: 'jwt_token');              
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => LoginFormScreen()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Logged out successfully!')),
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<dynamic>>(
         future: Future.wait([fetchProyek(), JwtUtils.getUsernameFromJwt()]),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'view_all_proyek.dart'; // Import the ViewAllProyekScreen
 import 'package:manpromanpro_mobile/utils/jwt_utils.dart';
+import 'package:manpromanpro_mobile/screens/login.dart';
 
 class HomeScreen extends StatelessWidget {
   final _secureStorage = FlutterSecureStorage();
@@ -15,6 +16,20 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Screen'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await _secureStorage.delete(key: 'jwt_token');              
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => LoginFormScreen()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Logged out successfully!')),
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
         child: FutureBuilder<String?>(
